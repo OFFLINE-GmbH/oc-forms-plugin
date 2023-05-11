@@ -1,0 +1,15 @@
+{
+    "name": "offline/oc-forms-plugin",
+    "description": "Simple Form Builder Plugin for October CMS",
+    "type": "october-plugin",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Tobias Kündig",
+            "email": "tobias@offline.ch"
+        }
+    ],
+    "require": {
+	"php": ">=8.0"
+    }
+}
