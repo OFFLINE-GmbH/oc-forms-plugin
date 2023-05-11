@@ -1,0 +1,10 @@
+name: Submissions
+form: $/offline/forms/models/submission/fields.yaml
+modelClass: OFFLINE\Forms\Models\Submission
+defaultRedirect: offline/forms/submissions
+create:
+    redirect: 'offline/forms/submissions/update/:id'
+    redirectClose: offline/forms/submissions
+update:
+    redirect: offline/forms/submissions
+    redirectClose: offline/forms/submissions

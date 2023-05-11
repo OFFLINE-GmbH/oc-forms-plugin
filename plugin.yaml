@@ -1,0 +1,25 @@
+plugin:
+    name: 'offline.forms::lang.plugin.name'
+    description: 'offline.forms::lang.plugin.description'
+    author: OFFLINE
+    icon: oc-icon-inbox
+    homepage: 'https://github.com/OFFLINE-GmbH/oc-forms-plugin'
+permissions:
+    'offline.forms::is_admin':
+        tab: 'offline.forms::lang.permissions.is_admin'
+        label: 'offline.forms::lang.permissions.is_admin_comment'
+    'offline.forms::can_see_forms':
+        tab: 'offline.forms::lang.permissions.can_see_forms'
+        label: 'offline.forms::lang.permissions.can_see_forms_comment'
+navigation:
+    main-menu-item:
+        label: 'offline.forms::lang.forms'
+        url: offline/forms/forms
+        icon: icon-inbox
+        sideMenu:
+            side-menu-forms:
+                label: 'offline.forms::lang.forms'
+                url: offline/forms/forms
+                icon: icon-inbox
+                permissions:
+                    - 'offline.forms::is_admin'

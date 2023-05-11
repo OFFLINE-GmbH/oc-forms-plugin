@@ -1,0 +1,137 @@
+fields:
+    name:
+        label: 'offline.forms::lang.name'
+        span: auto
+        type: text
+    slug:
+        label: 'offline.forms::lang.slug'
+        span: auto
+        permissions: 'offline.forms::is_admin'
+        preset:
+            field: name
+            type: slug
+        type: text
+tabs:
+    fields:
+        fields:
+            prompt: 'offline.forms::lang.add_field'
+            titleFrom: name
+            style: collapsed
+            span: full
+            displayMode: builder
+            type: repeater
+            tab: 'offline.forms::lang.fields'
+            groups:
+                input:
+                    name: 'offline.forms::input'
+                    description: 'offline.forms::input_comment'
+                    icon: icon-font
+                    fields:
+                        label:
+                            label: 'offline.forms::label'
+                            type: text
+                            required: true
+                            span: row
+                            spanClass: 'col-md-4'
+                        name:
+                            label: 'offline.forms::name'
+                            type: text
+                            span: row
+                            spanClass: 'col-md-4'
+                            required: false
+                        type:
+                            label: 'offline.forms::type'
+                            type: dropdown
+                            span: row
+                            spanClass: 'col-md-4'
+                            required: true
+                            options:
+                                text: 'offline.forms::text'
+                                email: 'offline.forms::email'
+                        is_required:
+                            type: checkbox
+                            label: 'offline.forms::is_required'
+
+                textarea:
+                    name: 'offline.forms::textarea'
+                    description: 'offline.forms::textarea_comment'
+                    icon: icon-text-height
+                    fields:
+                        name:
+                            label: 'offline.forms::name'
+                            type: text
+                            span: auto
+                section:
+                    name: 'offline.forms::section'
+                    description: 'offline.forms::section_comment'
+                    icon: icon-header
+                    fields:
+                        title:
+                            label: 'offline.forms::title'
+                            type: text
+                            span: auto
+                        text:
+                            label: 'offline.forms::text'
+                            type: text
+                            span: auto
+
+        recipients:
+            label: 'offline.forms::lang.recipients'
+            prompt: 'offline.forms::lang.add_recipient'
+            titleFrom: email
+            style: collapsed
+            span: auto
+            type: repeater
+            tab: 'offline.forms::lang.email'
+            form:
+                fields:
+                    email:
+                        label: 'offline.forms::lang.email'
+                        span: auto
+                        required: 1
+                        type: text
+                    name:
+                        label: 'offline.forms::lang.name'
+                        span: auto
+                        required: 0
+                        type: text
+        send_cc:
+            label: 'offline.forms::lang.send_cc'
+            span: auto
+            type: checkbox
+            default: 1
+            comment: 'offline.forms::lang.send_cc_comment'
+            tab: 'offline.forms::lang.email'
+        is_enabled:
+            type: switch
+            label: 'offline.forms::lang.is_enabled'
+            default: 1
+            span: left
+            comment: 'offline.forms::lang.is_enabled_comment'
+            tab: 'offline.forms::lang.config'
+        spam_protection_enabled:
+            label: 'offline.forms::lang.spam_protection_enabled'
+            span: full
+            type: switch
+            comment: 'offline.forms::lang.spam_protection_enabled_comment'
+            tab: 'offline.forms::lang.spam_protection'
+        spam_limit_ip_15min:
+            label: 'offline.forms::lang.spam_limit_ip_15min'
+            span: auto
+            default: '3'
+            trigger:
+                action: show
+                field: spam_protection_enabled
+                condition: checked
+            type: number
+            tab: 'offline.forms::lang.spam_protection'
+        spam_limit_global_1h:
+            label: 'offline.forms::lang.spam_limit_global_1h'
+            span: left
+            default: '10'
+            trigger:
+                action: show
+                field: spam_protection_enabled
+                condition: checked
+            type: number
+            tab: 'offline.forms::lang.spam_protection'

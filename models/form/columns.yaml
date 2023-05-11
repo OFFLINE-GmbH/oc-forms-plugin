@@ -1,0 +1,38 @@
+columns:
+    name:
+        label: 'offline.forms::lang.name'
+        type: text
+        searchable: true
+        sortable: true
+    slug:
+        label: 'offline.forms::lang.slug'
+        type: text
+        searchable: true
+        invisible: true
+        sortable: true
+    is_enabled:
+        label: 'offline.forms::lang.is_enabled'
+        type: switch
+        searchable: true
+        sortable: true
+    spam_protection_enabled:
+        label: 'offline.forms::lang.spam_protection_enabled'
+        type: switch
+        searchable: true
+        sortable: true
+    send_cc:
+        label: 'offline.forms::lang.send_cc'
+        type: text
+        searchable: true
+        invisible: true
+        sortable: true
+    created_at:
+        label: 'offline.forms::lang.created_at'
+        type: datetime
+        searchable: true
+        invisible: true
+        sortable: true
+    updated_at:
+        label: 'offline.forms::lang.updated_at'
+        type: datetime
+        sortable: true

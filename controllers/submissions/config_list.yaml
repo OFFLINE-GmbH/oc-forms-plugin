@@ -1,0 +1,12 @@
+list: $/offline/forms/models/submission/columns.yaml
+modelClass: OFFLINE\Forms\Models\Submission
+title: Submissions
+noRecordsMessage: 'backend::lang.list.no_records'
+showSetup: true
+showCheckboxes: true
+recordsPerPage: 20
+toolbar:
+    buttons: list_toolbar
+    search:
+        prompt: 'backend::lang.list.search_prompt'
+recordUrl: 'offline/forms/submissions/update/:id'

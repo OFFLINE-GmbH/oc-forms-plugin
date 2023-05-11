@@ -1,0 +1,11 @@
+name: 'offline.forms::lang.forms'
+modelClass: OFFLINE\Forms\Models\Form
+form: $/offline/forms/models/form/fields.yaml
+defaultRedirect: offline/forms/forms
+create:
+    redirect: 'offline/forms/forms/update/:id'
+    redirectClose: offline/forms/forms
+update:
+    redirect: offline/forms/forms
+    redirectClose: offline/forms/forms
+preview: {  }
