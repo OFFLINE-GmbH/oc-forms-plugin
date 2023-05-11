@@ -1,5 +1,5 @@
 fields:
-    dummy:
-        label: Text
+    created_at:
+        label: 'offline.forms::lang.created_at'
+        type: datepicker
         span: auto
-        type: text

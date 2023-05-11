@@ -22,6 +22,6 @@ class Forms extends Controller
     public function __construct()
     {
         parent::__construct();
-        BackendMenu::setContext('OFFLINE.Forms', 'main-menu-item', 'side-menu-forms');
+        BackendMenu::setContext('OFFLINE.Forms', 'offline-forms-main-menu', 'side-menu-forms');
     }
 }

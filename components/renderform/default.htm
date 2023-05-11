@@ -1,0 +1,18 @@
+{% set attributes = {
+    'data-request': __SELF__ ~ '::onSubmit',
+    'data-request-validate': true,
+    'novalidate': true,
+    'class': __SELF__.classNames(__SELF__.property('formClasses'))
+} %}
+
+{{ form_open(attributes) }}
+
+    {% partial __SELF__ ~ '::fields' %}
+
+    {% partial __SELF__ ~ '::actions' %}
+
+    {% if __SELF__.useHoneypot %}
+        {% partial __SELF__ ~ '::honeypot' %}
+    {% endif %}
+
+{{ form_close() }}

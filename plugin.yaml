@@ -12,7 +12,7 @@ permissions:
         tab: 'offline.forms::lang.permissions.can_see_forms'
         label: 'offline.forms::lang.permissions.can_see_forms_comment'
 navigation:
-    main-menu-item:
+    offline-forms-main-menu:
         label: 'offline.forms::lang.forms'
         url: offline/forms/forms
         icon: icon-inbox

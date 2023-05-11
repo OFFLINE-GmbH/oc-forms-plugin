@@ -1,21 +1,5 @@
 columns:
-    ip_hash:
-        label: ip_hash
-        type: text
-        invisible: true
-    port:
-        label: port
-        type: text
-        invisible: true
     created_at:
         label: created_at
         type: datetime
         invisible: false
-    updated_at:
-        label: updated_at
-        type: datetime
-        invisible: true
-    deleted_at:
-        label: deleted_at
-        type: datetime
-        invisible: true

@@ -1,0 +1,19 @@
+handle: OFFLINE.Forms::form
+name: 'offline.forms::lang.form'
+section: 'offline.forms::lang.boxes_section'
+
+validation:
+    rules:
+        form: required
+
+components:
+    formRender:
+
+form:
+    fields:
+        form:
+            label: 'offline.forms::lang.form'
+            type: dropdown
+            span: full
+            emptyOption: 'offline.forms::lang.form_empty_option'
+            options: '\OFFLINE\Forms\Models\Form::getFormOptions'

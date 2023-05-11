@@ -1,0 +1,17 @@
+{# Overrides by type #}
+{% set typeOverride = __SELF__.alias ~ '::_type_' ~ field.type ~ '.htm' %}
+{# Overrides by field name #}
+{% set nameOverride = __SELF__.alias ~ '::_name_' ~ field.name ~ '.htm' %}
+{# Default partial for the given field type. #}
+{% set fieldPartial = __SELF__.alias ~ '::field_' ~ field.type ~ '.htm' %}
+
+{% if hasPartial(nameOverride) %}
+    {% partial nameOverride field=field %}
+{% elseif hasPartial(typeOverride) %}
+    {% partial typeOverride field=field %}
+{% elseif hasPartial(fieldPartial) %}
+    {% partial fieldPartial field=field %}
+{% else %}
+    {# Use the text field as fallback #}
+    {% partial __SELF__ ~ '::field_text' field=field %}
+{% endif %}

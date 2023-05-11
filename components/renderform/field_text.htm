@@ -1,0 +1,9 @@
+<label class="{{ __SELF__.classNames('form-label') }}" for="{{ field.id }}">
+    {{ field.label }}
+</label>
+<input
+    class="{{ __SELF__.classNames('form-control', 'form-control--' ~ field.type) }}"
+    type="{{ field.type }}"
+    name="{{ field.id }}"
+    id="{{ field.id }}"
+>

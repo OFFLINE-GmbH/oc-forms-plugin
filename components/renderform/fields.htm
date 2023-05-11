@@ -1,0 +1,3 @@
+{% for field in __SELF__.form.fields %}
+    {% partial __SELF__ ~ '::field' field=field %}
+{% endfor %}

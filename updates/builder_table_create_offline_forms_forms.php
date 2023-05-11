@@ -19,6 +19,7 @@ class BuilderTableCreateOfflineFormsForms extends Migration
             $table->boolean('spam_protection_enabled')->default(1);
             $table->integer('spam_limit_ip_15min')->default(3);
             $table->integer('spam_limit_global_1h')->default(10);
+            $table->string('submit_button_label')->default('');
             $table->timestamp('created_at')->nullable();
             $table->timestamp('updated_at')->nullable();
         });

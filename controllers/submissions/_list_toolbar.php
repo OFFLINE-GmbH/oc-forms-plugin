@@ -1,8 +1,13 @@
 <div data-control="toolbar">
     <a
-        href="<?= Backend::url('offline/forms/submissions/create') ?>"
+        href="<?= Backend::url('offline/forms/submissions/create/' . ($this->params[0] ?? -1)) ?>"
         class="btn btn-primary oc-icon-plus">
         <?= e(trans('backend::lang.form.create')) ?>
+    </a>
+    <a
+        href="<?= Backend::url('offline/forms/submissions/export/' . ($this->params[0] ?? -1)) ?>"
+        class="btn btn-default oc-icon-download">
+        <?= e(trans('offline.forms::lang.export_submissions')) ?>
     </a>
     <button
         class="btn btn-default oc-icon-trash-o"

@@ -15,7 +15,7 @@ tabs:
     fields:
         fields:
             prompt: 'offline.forms::lang.add_field'
-            titleFrom: name
+            titleFrom: label
             style: collapsed
             span: full
             displayMode: builder
@@ -23,55 +23,58 @@ tabs:
             tab: 'offline.forms::lang.fields'
             groups:
                 input:
-                    name: 'offline.forms::input'
-                    description: 'offline.forms::input_comment'
+                    name: 'offline.forms::lang.input'
+                    description: 'offline.forms::lang.input'
                     icon: icon-font
                     fields:
                         label:
-                            label: 'offline.forms::label'
+                            label: 'offline.forms::lang.label'
+                            comment: 'offline.forms::lang.label_comment'
                             type: text
                             required: true
                             span: row
                             spanClass: 'col-md-4'
-                        name:
-                            label: 'offline.forms::name'
-                            type: text
-                            span: row
-                            spanClass: 'col-md-4'
-                            required: false
                         type:
-                            label: 'offline.forms::type'
+                            label: 'offline.forms::lang.type'
                             type: dropdown
                             span: row
                             spanClass: 'col-md-4'
                             required: true
                             options:
-                                text: 'offline.forms::text'
-                                email: 'offline.forms::email'
+                                text: 'offline.forms::lang.text'
+                                email: 'offline.forms::lang.email'
+                        name:
+                            label: 'offline.forms::lang.name'
+                            comment: 'offline.forms::lang.name_comment'
+                            type: text
+                            span: row
+                            spanClass: 'col-md-4'
+                            required: false
                         is_required:
                             type: checkbox
-                            label: 'offline.forms::is_required'
+                            default: 1
+                            label: 'offline.forms::lang.is_required'
 
                 textarea:
-                    name: 'offline.forms::textarea'
-                    description: 'offline.forms::textarea_comment'
+                    name: 'offline.forms::lang.textarea'
+                    description: 'offline.forms::lang.textarea'
                     icon: icon-text-height
                     fields:
                         name:
-                            label: 'offline.forms::name'
+                            label: 'offline.forms::lang.name'
                             type: text
                             span: auto
                 section:
-                    name: 'offline.forms::section'
-                    description: 'offline.forms::section_comment'
+                    name: 'offline.forms::lang.section'
+                    description: 'offline.forms::lang.section'
                     icon: icon-header
                     fields:
                         title:
-                            label: 'offline.forms::title'
+                            label: 'offline.forms::lang.title'
                             type: text
                             span: auto
                         text:
-                            label: 'offline.forms::text'
+                            label: 'offline.forms::lang.text'
                             type: text
                             span: auto
 
@@ -109,9 +112,16 @@ tabs:
             span: left
             comment: 'offline.forms::lang.is_enabled_comment'
             tab: 'offline.forms::lang.config'
+        submit_button_label:
+            type: text
+            label: 'offline.forms::lang.submit_button_label'
+            comment: 'offline.forms::lang.submit_button_label_comment'
+            span: left
+            tab: 'offline.forms::lang.config'
         spam_protection_enabled:
             label: 'offline.forms::lang.spam_protection_enabled'
             span: full
+            default: 1
             type: switch
             comment: 'offline.forms::lang.spam_protection_enabled_comment'
             tab: 'offline.forms::lang.spam_protection'
