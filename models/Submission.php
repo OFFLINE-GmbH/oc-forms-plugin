@@ -1,8 +1,11 @@
 <?php namespace OFFLINE\Forms\Models;
 
+use Illuminate\Mail\Message;
 use October\Rain\Argon\Argon;
 use October\Rain\Database\ExpandoModel;
 use October\Rain\Database\Relations\BelongsTo;
+use October\Rain\Mail\Mailable;
+use October\Rain\Support\Facades\Mail;
 
 /**
  * @property string $ip_hash
@@ -66,10 +69,32 @@ class Submission extends ExpandoModel
         }
     }
 
+    public function afterCreate()
+    {
+        if (count($this->form->recipients ?? []) > 0) {
+            $this->sendMailToRecipients($this->form->name, $this->form->recipients);
+        }
+    }
+
     public function beforeValidate()
     {
         $this->rules = array_merge($this->rules, $this->form->getValidationRules());
         $this->attributeNames = array_merge($this->attributeNames, $this->form->getFieldNames());
     }
 
+    /**
+     * Send the submission email to all provided recipients.
+     */
+    public function sendMailToRecipients(string $subject, array $recipients)
+    {
+        Mail::send(
+            'offline.forms::mail.submission',
+            ['submission' => $this],
+            function (Message $message) use ($subject, $recipients) {
+                $message->subject($subject);
+                foreach ($recipients as $recipient) {
+                    $message->to(array_get($recipient, 'email'), array_get($recipient, 'name'));
+                }
+            });
+    }
 }

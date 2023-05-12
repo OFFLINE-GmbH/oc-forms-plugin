@@ -6,6 +6,7 @@ use October\Rain\Database\Relations\HasMany;
 /**
  * @property string $name
  * @property array $fields
+ * @property array{'email': string, 'name': string} $recipients
  * @property boolean $spam_protection_enabled
  * @property integer $spam_limit_ip_15min
  * @property integer $spam_limit_global_1h
@@ -108,7 +109,17 @@ class Form extends Model
     public function getFieldNames(): array
     {
         return collect($this->fields)
-            ->mapWithKeys(fn(array $field) => [$field['name'] => $field['label']])
+            ->mapWithKeys(fn(array $field) => [$field['name'] => $field['label'] ?? $field['name']])
+            ->toArray();
+    }
+
+    /**
+     * Returns all fields that may contain data (not sections)..
+     */
+    public function getRelevantFields(): array
+    {
+        return collect($this->fields)
+            ->filter(fn(array $field) => $field['_field_type'] !== 'section')
             ->toArray();
     }
 }

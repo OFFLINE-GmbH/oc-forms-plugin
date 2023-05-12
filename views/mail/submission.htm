@@ -1,0 +1,8 @@
+# {{ submission.form.name }}
+
+{% for field in submission.form.getRelevantFields() %}
+    <p>
+        <strong>{{ field.label }}</strong><br>
+        {{ submission.data[field.name] | nl2br }}
+    </p>
+{% endfor %}
