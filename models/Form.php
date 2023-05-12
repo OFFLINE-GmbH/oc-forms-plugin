@@ -113,6 +113,12 @@ class Form extends Model
                     $rules[] = 'email';
                 }
 
+                if (array_get($field, '_field_type') === 'fileupload') {
+                    if ($maxFiles = array_get($field, 'max_files')) {
+                        $rules[] = 'max:' . $maxFiles;
+                    }
+                }
+
                 return count($rules) > 0
                     ? [$field['name'] => implode('|', $rules)]
                     : [];

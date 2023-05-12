@@ -60,6 +60,13 @@
     'spam_protection_15_error' => 'Sie senden zu viele Nachrichten. Bitte versuchen Sie es in 15 Minuten erneut.',
     'spam_protection_honeypot' => 'Ihre Nachricht wurde als SPAM erkannt und gesperrt.',
     'spam_protection_global_error' => 'Das Formular ist vorübergehend deaktiviert. Bitte versuchen Sie es später erneut.',
+    'submit_error' => 'Bitte korrigieren Sie Ihre Eingaben.',
+    'fileupload_allowed_extensions' => 'Erlaubte Dateiendungen',
+    'fileupload_allowed_extensions_comment' => 'z. B. jpg, jpeg, png, pdf, txt, leer lassen für keine Einschränkung',
+    'fileupload_max_files' => 'Max. Anzahl Dateien',
+    'fileupload_max_files_comment' => 'Es können maximal so viele Dateien hochgeladen werden, leer lassen für keine Einschränkung',
+    'fileupload_max_size' => 'Max. Dateigröße (in MB)',
+    'fileupload_max_size_comment' => 'Leer lassen für keine Einschränkung',
     'components' => [
         'render_form' => [
             'name' => 'Formular',
@@ -68,6 +75,8 @@
             'form_classes' => 'CSS-Klassen für Formular',
             'css_prefix' => 'CSS-Klassen-Prefix',
             'use_honeypot' => 'Honeypot verwenden',
+            'include_jquery' => 'jQuery automatisch einbinden',
+            'include_framework' => 'AJAX Framework automatisch einbinden',
         ]
     ]
 ];

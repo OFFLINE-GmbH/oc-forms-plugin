@@ -95,17 +95,31 @@ tabs:
                             comment: 'offline.forms::lang.label_comment'
                             type: text
                             required: true
-                            span: row
-                            spanClass: 'col-md-4'
+                            span: auto
+                        allowed_extensions:
+                            label: 'offline.forms::lang.fileupload_allowed_extensions'
+                            comment: 'offline.forms::lang.fileupload_allowed_extensions_comment'
+                            type: taglist
+                            span: auto
                         name:
                             label: 'offline.forms::lang.name'
                             comment: 'offline.forms::lang.name_comment'
                             type: text
-                            span: row
-                            spanClass: 'col-md-4'
+                            span: auto
                             required: false
+                        max_files:
+                            label: 'offline.forms::lang.fileupload_max_files'
+                            comment: 'offline.forms::lang.fileupload_max_files_comment'
+                            type: number
+                            span: auto
+                        max_size:
+                            label: 'offline.forms::lang.fileupload_max_size'
+                            comment: 'offline.forms::lang.fileupload_max_size_comment'
+                            type: number
+                            span: right
                         is_required:
                             type: checkbox
+                            span: left
                             default: 1
                             label: 'offline.forms::lang.is_required'
 

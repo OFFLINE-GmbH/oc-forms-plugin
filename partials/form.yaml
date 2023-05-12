@@ -1,5 +1,5 @@
-handle: OFFLINE.Forms::forms
-name: 'offline.forms::lang.forms'
+handle: OFFLINE.Forms::form
+name: 'offline.forms::lang.form'
 section: 'offline.forms::lang.boxes_section'
 
 validation:
@@ -8,6 +8,8 @@ validation:
 
 components:
     renderForm:
+        properties:
+            includeJQuery: true
 
 form:
     fields:

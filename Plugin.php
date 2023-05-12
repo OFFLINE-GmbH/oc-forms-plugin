@@ -49,12 +49,29 @@ class Plugin extends PluginBase
             }
 
             collect($widget->model->form->fields)->each(function (array $field) use ($widget) {
+                $args = [];
+                switch ($field['_field_type'] ?? '') {
+                    case 'section':
+                        $args['type'] = 'section';
+                        $args['span'] = 'full';
+                        $args['comment'] = $field['text'];
+                        break;
+                    case 'fileupload':
+                        $allowedExtensions = array_get($field, 'allowed_extensions');
+                        $args['type'] = 'fileupload';
+                        $args['mode'] = array_intersect(explode(',', $allowedExtensions), ['jpg', 'jpeg', 'png', 'gif']) ? 'image' : 'file';
+                        $args['fileTypes'] = $allowedExtensions;
+                        break;
+                    default:
+                        $args['type'] = 'text';
+                        break;
+                }
                 $widget->addTabFields([
                     $field['name'] => [
                         'label' => $field['label'] ?? $field['name'],
-                        'type' => $field['type'] ?? 'text',
                         'span' => 'auto',
                         'tab' => 'offline.forms::lang.fields',
+                        ...$args,
                     ],
                 ]);
             });
@@ -72,18 +89,26 @@ class Plugin extends PluginBase
             }
 
             collect($form->fields)->each(function (array $field) use ($widget) {
-                switch ($field['type']) {
+                $args = [];
+                switch ($field['_field_type'] ?? '') {
+                    case 'section':
+                        return;
+                    case 'fileupload':
+                        $args['type'] = 'partial';
+                        $args['path'] = '$/offline/forms/controllers/submissions/_fileupload_column.php';
+                        $args['clickable'] = false;
+                        break;
                     default:
-                        $type = 'text';
+                        $args['type'] = 'text';
                         break;
                 }
 
                 $widget->addColumns([
                     $field['name'] => [
                         'label' => $field['label'] ?? $field['name'],
-                        'type' => $type,
                         'sortable' => false,
                         '_searchable' => true,
+                        ...$args,
                     ],
                 ]);
 

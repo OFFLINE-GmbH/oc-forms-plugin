@@ -17,7 +17,7 @@ class RenderForm extends ComponentBase
     /**
      * The form that is rendered.
      */
-    public Form $form;
+    public ?Form $form;
 
     /**
      * Add a honeypot field to the form.
@@ -68,6 +68,16 @@ class RenderForm extends ComponentBase
                 'type' => 'checkbox',
                 'default' => true,
             ],
+            'includeJQuery' => [
+                'title' => 'offline.forms::lang.components.render_form.include_jquery',
+                'type' => 'checkbox',
+                'default' => false,
+            ],
+            'includeFramework' => [
+                'title' => 'offline.forms::lang.components.render_form.include_framework',
+                'type' => 'checkbox',
+                'default' => false,
+            ],
         ];
     }
 
@@ -79,6 +89,30 @@ class RenderForm extends ComponentBase
         $this->useHoneypot = $this->property('useHoneypot', true);
         $this->cssClassPrefix = $this->property('cssPrefix', '');
 
+        if ($this->property('includeJQuery', false)) {
+            $this->addJs('/modules/system/assets/js/vendor/jquery.min.js');
+        }
+
+        if ($this->property('includeFramework', false)) {
+            $this->addJs('/modules/system/assets/js/framework-extras.js');
+        }
+
+        $this->setupForm();
+    }
+
+    /**
+     * OFFLINE.Boxes compatibility.
+     */
+    public function boxesInit()
+    {
+        $this->setupForm();
+    }
+
+    /**
+     * Load and initialize the form.
+     */
+    protected function setupForm()
+    {
         $this->form = $this->getForm();
 
         $this->initializeFileUploads();
@@ -93,6 +127,8 @@ class RenderForm extends ComponentBase
             return;
         }
 
+        $submission = $this->getSubmissionModel();
+
         foreach ($this->form->fields as $field) {
             if ($field['_field_type'] !== 'fileupload') {
                 continue;
@@ -103,8 +139,8 @@ class RenderForm extends ComponentBase
                 'fileUploader' . $this->pascalCase($field['name']),
                 [
                     'deferredBinding' => true,
-                    'fileTypes' => array_get($field, 'types'),
-                    'maxSize' => array_get($field, 'maxSize'),
+                    'fileTypes' => array_get($field, 'allowed_extensions'),
+                    'maxSize' => array_get($field, 'max_size'),
                     'form' => $this->form,
                     'field' => $field['name'],
                 ],
@@ -113,10 +149,8 @@ class RenderForm extends ComponentBase
                 continue;
             }
 
-            $model = new Submission();
-            $model->attachMany[$field['name']] = \System\Models\File::class;
-
-            $component->bindModel($field['name'], $model);
+            $component->bindModel($field['name'], $submission);
+            $component->onRun();
         }
     }
 
@@ -133,11 +167,12 @@ class RenderForm extends ComponentBase
 
         $this->guardSpamSubmissions();
 
-        $submission = new Submission();
-        $submission->attachMany['bild'] = File::class;
-        $submission->setRelation('bild', $submission->bild()->withDeferred(post('_session_key'))->get());
-        $submission->form_id = $this->form->id;
-        $submission->forceFill(array_except(request($this->alias), $submission->getGuarded()));
+        $submission = $this->getSubmissionModel();
+
+        $submission->forceFill(
+            array_except(request($this->alias), $submission->getGuarded())
+        );
+
         $submission->save(null, post('_session_key'));
     }
 
@@ -248,5 +283,17 @@ class RenderForm extends ComponentBase
     public function pascalCase(string $input): string
     {
         return ucfirst(Str::camel($input));
+    }
+
+    /**
+     * Returns an initialized Submission model.
+     */
+    protected function getSubmissionModel()
+    {
+        $model = new Submission();
+        $model->form_id = $this->form->id;
+        $model->setRelationsForForm($this->form);
+
+        return $model;
     }
 }

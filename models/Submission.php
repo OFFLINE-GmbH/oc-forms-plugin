@@ -5,6 +5,7 @@ use October\Rain\Argon\Argon;
 use October\Rain\Database\ExpandoModel;
 use October\Rain\Database\Relations\BelongsTo;
 use October\Rain\Support\Facades\Mail;
+use System\Models\File;
 
 /**
  * @property string $ip_hash
@@ -55,6 +56,11 @@ class Submission extends ExpandoModel
         'deleted_at',
     ];
 
+    public function afterFetch()
+    {
+        $this->setRelationsForForm($this->form);
+    }
+
     public function beforeCreate()
     {
         $this->ip_hash = hash('sha256', request()?->ip());
@@ -90,6 +96,14 @@ class Submission extends ExpandoModel
         $this->attributeNames = array_merge($this->attributeNames, $this->form->getFieldNames());
     }
 
+    public function afterValidate()
+    {
+        // Add a generic error to display beside the submit button.
+        if ($this->validationErrors->any() && !$this->validationErrors->has('submit')) {
+            $this->validationErrors->add('submit', trans('offline.forms::lang.submit_error'));
+        }
+    }
+
     /**
      * Send the submission email to all provided recipients.
      */
@@ -103,6 +117,21 @@ class Submission extends ExpandoModel
                 foreach ($recipients as $recipient) {
                     $message->to(array_get($recipient, 'email'), array_get($recipient, 'name'));
                 }
+            });
+    }
+
+    /**
+     * Initialize dynamic relations.
+     */
+    public function setRelationsForForm(Form $form)
+    {
+        collect($form->fields)
+            ->filter(fn($field) => $field['_field_type'] === 'fileupload')
+            ->each(function ($field) use ($form) {
+                $this->attachMany[$field['name']] = [
+                    File::class,
+                    'public' => false,
+                ];
             });
     }
 }

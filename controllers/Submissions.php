@@ -59,7 +59,7 @@ class Submissions extends Controller
 
     public function listExtendQuery($query)
     {
-        $query->where('form_id', $this->formModel->id);
+        $query->where('form_id', $this->formModel->id)->with('form');
 
         // Add the search query if a search term is set.
         $term = $this->getWidget('listToolbarSearch')?->getActiveTerm();
