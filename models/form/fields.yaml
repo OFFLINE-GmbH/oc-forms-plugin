@@ -84,6 +84,31 @@ tabs:
                             type: checkbox
                             default: 1
                             label: 'offline.forms::lang.is_required'
+
+                fileupload:
+                    name: 'offline.forms::lang.fileupload'
+                    description: 'offline.forms::lang.fileupload'
+                    icon: icon-upload
+                    fields:
+                        label:
+                            label: 'offline.forms::lang.label'
+                            comment: 'offline.forms::lang.label_comment'
+                            type: text
+                            required: true
+                            span: row
+                            spanClass: 'col-md-4'
+                        name:
+                            label: 'offline.forms::lang.name'
+                            comment: 'offline.forms::lang.name_comment'
+                            type: text
+                            span: row
+                            spanClass: 'col-md-4'
+                            required: false
+                        is_required:
+                            type: checkbox
+                            default: 1
+                            label: 'offline.forms::lang.is_required'
+
                 section:
                     name: 'offline.forms::lang.section'
                     description: 'offline.forms::lang.section'

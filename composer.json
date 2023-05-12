@@ -12,5 +12,8 @@
     "require": {
     	"php": ">=8.0",
         "october/rain": ">=3.3"
+    },
+    "suggest": {
+        "responsiv/uploader-plugin": "^1.0"
     }
 }

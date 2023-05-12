@@ -3,9 +3,11 @@
 use Cms\Classes\ComponentBase;
 use October\Rain\Argon\Argon;
 use October\Rain\Exception\ValidationException;
+use October\Rain\Support\Facades\Str;
 use OFFLINE\Forms\Models\Form;
 use OFFLINE\Forms\Models\Submission;
-use PhpParser\Node\Arg;
+use Responsiv\Uploader\Components\FileUploader;
+use System\Models\File;
 
 /**
  * Renders a form.
@@ -76,14 +78,46 @@ class RenderForm extends ComponentBase
     {
         $this->useHoneypot = $this->property('useHoneypot', true);
         $this->cssClassPrefix = $this->property('cssPrefix', '');
+
+        $this->form = $this->getForm();
+
+        $this->initializeFileUploads();
     }
 
     /**
-     * The component is executed.
+     * Initialize Responsiv.Uploader if available.
      */
-    public function onRun()
+    protected function initializeFileUploads()
     {
-        $this->form = $this->getForm();
+        if (!class_exists(\Responsiv\Uploader\Plugin::class) || !$this->form) {
+            return;
+        }
+
+        foreach ($this->form->fields as $field) {
+            if ($field['_field_type'] !== 'fileupload') {
+                continue;
+            }
+
+            $component = $this->controller->addComponent(
+                FileUploader::class,
+                'fileUploader' . $this->pascalCase($field['name']),
+                [
+                    'deferredBinding' => true,
+                    'fileTypes' => array_get($field, 'types'),
+                    'maxSize' => array_get($field, 'maxSize'),
+                    'form' => $this->form,
+                    'field' => $field['name'],
+                ],
+            );
+            if (!$component) {
+                continue;
+            }
+
+            $model = new Submission();
+            $model->attachMany[$field['name']] = \System\Models\File::class;
+
+            $component->bindModel($field['name'], $model);
+        }
     }
 
     /**
@@ -93,8 +127,6 @@ class RenderForm extends ComponentBase
      */
     public function onSubmit()
     {
-        $this->form = $this->getForm();
-
         if (!$this->form) {
             return;
         }
@@ -102,9 +134,11 @@ class RenderForm extends ComponentBase
         $this->guardSpamSubmissions();
 
         $submission = new Submission();
+        $submission->attachMany['bild'] = File::class;
+        $submission->setRelation('bild', $submission->bild()->withDeferred(post('_session_key'))->get());
         $submission->form_id = $this->form->id;
         $submission->forceFill(array_except(request($this->alias), $submission->getGuarded()));
-        $submission->save();
+        $submission->save(null, post('_session_key'));
     }
 
     /**
@@ -206,5 +240,13 @@ class RenderForm extends ComponentBase
                     ->implode(' ');
             })
             ->implode(' ');
+    }
+
+    /**
+     * Helper method to convert strings to pascal case.
+     */
+    public function pascalCase(string $input): string
+    {
+        return ucfirst(Str::camel($input));
     }
 }

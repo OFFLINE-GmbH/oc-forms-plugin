@@ -38,6 +38,7 @@
     'label' => 'Beschriftung',
     'label_comment' => 'Wird als Beschriftung im Formular verwendet',
     'name_comment' => 'Optional, wird automatisch generiert wenn leer',
+    'fileupload' => 'Dateiupload',
     'title' => 'Titel',
     'subtitle' => 'Untertitel',
     'type' => 'Typ',
