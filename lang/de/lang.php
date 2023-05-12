@@ -57,6 +57,7 @@
     'submit_button_label' => 'Text für Absende-Aktion',
     'submit_button_label_comment' => 'Wird auf dem Absende-Button angezeigt',
     'spam_protection_15_error' => 'Sie senden zu viele Nachrichten. Bitte versuchen Sie es in 15 Minuten erneut.',
+    'spam_protection_honeypot' => 'Ihre Nachricht wurde als SPAM erkannt und gesperrt.',
     'spam_protection_global_error' => 'Das Formular ist vorübergehend deaktiviert. Bitte versuchen Sie es später erneut.',
     'components' => [
         'render_form' => [

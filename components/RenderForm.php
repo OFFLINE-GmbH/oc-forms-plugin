@@ -112,6 +112,12 @@ class RenderForm extends ComponentBase
      */
     protected function guardSpamSubmissions()
     {
+        if ($this->useHoneypot && post('_hp')) {
+            throw new ValidationException([
+                'submit' => trans('offline.forms::lang.spam_protection_honeypot'),
+            ]);
+        }
+
         if (!$this->form->spam_protection_enabled) {
             return;
         }
