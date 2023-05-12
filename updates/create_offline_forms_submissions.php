@@ -3,7 +3,7 @@
 use Schema;
 use October\Rain\Database\Updates\Migration;
 
-class BuilderTableCreateOfflineFormsSubmissions extends Migration
+class CreateOfflineFormsSubmissions extends Migration
 {
     public function up()
     {

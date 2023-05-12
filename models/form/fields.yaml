@@ -139,6 +139,13 @@ tabs:
             comment: 'offline.forms::lang.submit_button_label_comment'
             span: left
             tab: 'offline.forms::lang.config'
+        success_message:
+            type: textarea
+            size: tiny
+            label: 'offline.forms::lang.success_message'
+            comment: 'offline.forms::lang.success_message_comment'
+            span: left
+            tab: 'offline.forms::lang.config'
         spam_protection_enabled:
             label: 'offline.forms::lang.spam_protection_enabled'
             span: full

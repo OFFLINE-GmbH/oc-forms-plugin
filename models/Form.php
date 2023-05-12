@@ -2,10 +2,14 @@
 
 use Model;
 use October\Rain\Database\Relations\HasMany;
+use RuntimeException;
+use ValidationException;
 
 /**
  * @property string $name
+ * @property string $success_message
  * @property array $fields
+ * @property boolean $send_cc
  * @property array{'email': string, 'name': string} $recipients
  * @property boolean $spam_protection_enabled
  * @property integer $spam_limit_ip_15min
@@ -24,11 +28,16 @@ class Form extends Model
 
     public $rules = [
         'name' => 'required',
+        'success_message' => 'required',
         'recipients.*.email' => 'required',
     ];
 
     public $customMessages = [
         'recipients.*.email' => 'offline.forms::lang.recipients_email_validation',
+    ];
+
+    public $attributeNames = [
+        'success_message' => 'offline.forms::lang.success_message',
     ];
 
     public $hasMany = ['submissions' => Submission::class];
@@ -42,6 +51,15 @@ class Form extends Model
         'spam_limit_ip_15min' => 'integer',
         'spam_limit_global_1h' => 'integer',
     ];
+
+    public function beforeValidate()
+    {
+        if ($this->send_cc && !$this->getEmailField()) {
+            throw new ValidationException([
+                'send_cc' => trans('offline.forms::lang.validation_email_field_required'),
+            ]);
+        }
+    }
 
     public function beforeSave()
     {
@@ -121,5 +139,14 @@ class Form extends Model
         return collect($this->fields)
             ->filter(fn(array $field) => $field['_field_type'] !== 'section')
             ->toArray();
+    }
+
+    /**
+     * Returns the first e-mail field of the form.
+     */
+    public function getEmailField(): ?array
+    {
+        return collect($this->fields)
+            ->first(fn(array $field) => ($field['type'] ?? '') === 'email');
     }
 }

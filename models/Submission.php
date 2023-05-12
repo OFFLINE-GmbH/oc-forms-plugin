@@ -4,12 +4,12 @@ use Illuminate\Mail\Message;
 use October\Rain\Argon\Argon;
 use October\Rain\Database\ExpandoModel;
 use October\Rain\Database\Relations\BelongsTo;
-use October\Rain\Mail\Mailable;
 use October\Rain\Support\Facades\Mail;
 
 /**
  * @property string $ip_hash
  * @property string $port
+ * @property int $form_id
  *
  * @property Form $form
  * @method BelongsTo form()
@@ -73,6 +73,14 @@ class Submission extends ExpandoModel
     {
         if (count($this->form->recipients ?? []) > 0) {
             $this->sendMailToRecipients($this->form->name, $this->form->recipients);
+        }
+
+        if ($this->form->send_cc && $mailField = $this->form->getEmailField()) {
+            // Get the recipient's email from the form data.
+            $email = $this->data[$mailField['name']] ?? null;
+            if ($email) {
+                $this->sendMailToRecipients($this->form->name, [['email' => $email]]);
+            }
         }
     }
 

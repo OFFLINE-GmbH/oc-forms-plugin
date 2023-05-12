@@ -3,7 +3,7 @@
 use Schema;
 use October\Rain\Database\Updates\Migration;
 
-class BuilderTableCreateOfflineFormsForms extends Migration
+class CreateOfflineFormsForms extends Migration
 {
     public function up()
     {
@@ -20,6 +20,7 @@ class BuilderTableCreateOfflineFormsForms extends Migration
             $table->integer('spam_limit_ip_15min')->default(3);
             $table->integer('spam_limit_global_1h')->default(10);
             $table->string('submit_button_label')->default('');
+            $table->string('success_message');
             $table->timestamp('created_at')->nullable();
             $table->timestamp('updated_at')->nullable();
         });

@@ -1,18 +1,23 @@
 {% set attributes = {
     'data-request': __SELF__ ~ '::onSubmit',
     'data-request-validate': true,
+    'data-request-update': "{
+        '" ~ __SELF__.alias ~ "::success': '#" ~ __SELF__.alias ~ "-form'
+    }",
     'novalidate': true,
     'class': __SELF__.classNames(__SELF__.property('formClasses'))
 } %}
 
-{{ form_open(attributes) }}
+<div id="{{ __SELF__.alias }}-form">
+    {{ form_open(attributes) }}
 
-    {% partial __SELF__ ~ '::fields' %}
+        {% partial __SELF__ ~ '::fields' %}
 
-    {% partial __SELF__ ~ '::actions' %}
+        {% partial __SELF__ ~ '::actions' %}
 
-    {% if __SELF__.useHoneypot %}
-        {% partial __SELF__ ~ '::honeypot' %}
-    {% endif %}
+        {% if __SELF__.useHoneypot %}
+            {% partial __SELF__ ~ '::honeypot' %}
+        {% endif %}
 
-{{ form_close() }}
+    {{ form_close() }}
+</div>
