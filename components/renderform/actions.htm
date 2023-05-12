@@ -3,7 +3,7 @@
     class="{{ __SELF__.classNames('btn', 'btn-primary') }}"
     data-attach-loading
 >
-    {{ __SELF__.form.submit_button_label | default('offline.forms::lang.submit' | _) }}
+    {{ __SELF__.form.submit_button_label | default('offline.forms::lang.submit' | trans) }}
 </button>
 
-{% partial __SELF__ ~ '::validation' for="submit" %}
+{% partial __SELF__ ~ '::validation' field={name: "submit"} %}

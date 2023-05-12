@@ -1,0 +1,8 @@
+{% partial __SELF__ ~ '::label' field=field %}
+
+<textarea
+    class="{{ __SELF__.classNames('form-control', 'form-control--textarea') }}"
+    name="{{ field.id }}"
+    id="{{ field.id }}"
+    rows="{{ field.rows }}"
+></textarea>

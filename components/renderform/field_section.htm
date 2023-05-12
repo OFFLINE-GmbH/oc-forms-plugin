@@ -1,0 +1,10 @@
+<div class="{{ __SELF__.classNames('form-section') }}">
+    <h3 class="{{ __SELF__.classNames('form-section__title') }}">
+        {{ field.name }}
+    </h3>
+    {% if field.text %}
+        <p class="{{ __SELF__.classNames('form-section__subtitle') }}">
+            {{ field.text }}
+        </p>
+    {% endif %}
+</div>

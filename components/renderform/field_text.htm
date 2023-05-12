@@ -1,6 +1,5 @@
-<label class="{{ __SELF__.classNames('form-label') }}" for="{{ field.id }}">
-    {{ field.label }}
-</label>
+{% partial __SELF__ ~ '::label' field=field %}
+
 <input
     class="{{ __SELF__.classNames('form-control', 'form-control--' ~ field.type) }}"
     type="{{ field.type }}"

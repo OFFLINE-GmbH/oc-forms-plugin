@@ -3,7 +3,7 @@
 {# Overrides by field name #}
 {% set nameOverride = __SELF__.alias ~ '::_name_' ~ field.name ~ '.htm' %}
 {# Default partial for the given field type. #}
-{% set fieldPartial = __SELF__.alias ~ '::field_' ~ field.type ~ '.htm' %}
+{% set fieldPartial = __SELF__.alias ~ '::field_' ~ field._field_type ~ '.htm' %}
 
 {% if hasPartial(nameOverride) %}
     {% partial nameOverride field=field %}

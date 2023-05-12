@@ -19,6 +19,7 @@ tabs:
             style: collapsed
             span: full
             displayMode: builder
+            groupKeyFrom: _field_type
             type: repeater
             tab: 'offline.forms::lang.fields'
             groups:
@@ -41,7 +42,7 @@ tabs:
                             spanClass: 'col-md-4'
                             required: true
                             options:
-                                text: 'offline.forms::lang.text'
+                                text: 'offline.forms::lang.text_input'
                                 email: 'offline.forms::lang.email'
                         name:
                             label: 'offline.forms::lang.name'
@@ -60,23 +61,43 @@ tabs:
                     description: 'offline.forms::lang.textarea'
                     icon: icon-text-height
                     fields:
+                        label:
+                            label: 'offline.forms::lang.label'
+                            comment: 'offline.forms::lang.label_comment'
+                            type: text
+                            required: true
+                            span: row
+                            spanClass: 'col-md-4'
+                        rows:
+                            label: 'offline.forms::lang.rows'
+                            type: number
+                            span: row
+                            spanClass: 'col-md-4'
                         name:
                             label: 'offline.forms::lang.name'
+                            comment: 'offline.forms::lang.name_comment'
                             type: text
-                            span: auto
+                            span: row
+                            spanClass: 'col-md-4'
+                            required: false
+                        is_required:
+                            type: checkbox
+                            default: 1
+                            label: 'offline.forms::lang.is_required'
                 section:
                     name: 'offline.forms::lang.section'
                     description: 'offline.forms::lang.section'
                     icon: icon-header
                     fields:
-                        title:
+                        name:
                             label: 'offline.forms::lang.title'
                             type: text
                             span: auto
                         text:
-                            label: 'offline.forms::lang.text'
+                            label: 'offline.forms::lang.subtitle'
                             type: text
                             span: auto
+
 
         recipients:
             label: 'offline.forms::lang.recipients'

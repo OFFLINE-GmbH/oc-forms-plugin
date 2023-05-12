@@ -1,5 +1,10 @@
-<div class="{{ __SELF__.classNames('form-field', 'form-field--type-' ~ field.type, 'form-field--name-' ~ field.name) }}">
+<div class="{{ __SELF__.classNames(
+    'form-field',
+    'form-field--name-' ~ (field.name | slug),
+    'form-field--type-' ~ (field.type | default(field._field_type)),
+)}}"
+>
     {% partial __SELF__ ~ '::resolver' %}
 
-    {% partial __SELF__ ~ '::validation' for=field.name %}
+    {% partial __SELF__ ~ '::validation' field=field %}
 </div>

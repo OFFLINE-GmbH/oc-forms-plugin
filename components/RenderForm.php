@@ -143,7 +143,7 @@ class RenderForm extends ComponentBase
     /**
      * Return all available forms as dropdown options.
      */
-    protected function getIdOptions()
+    public function getIdOptions()
     {
         return Form::getFormOptions();
     }
