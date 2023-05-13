@@ -1,8 +1,26 @@
-# {{ submission.form.name }}
+# {{ subject }}
 
 {% for field in submission.form.getRelevantFields() %}
     <p>
         <strong>{{ field.label }}</strong><br>
-        {{ submission.data[field.name] | nl2br }}
+
+        {% if field._field_type == "fileupload" %}
+
+            {% for file in submission[field.name] %}
+                {% if not isCC %}
+                    <a href="{{ file.getPath() }}">
+                        {{ file.filename }}
+                    </a>
+                {% else %}
+                    {{ file.filename }}
+                {% endif %}
+                ({{ file.size }})
+            {% endfor %}
+
+        {% else %}
+
+            {{ submission.data[field.name] | nl2br }}
+
+        {% endif %}
     </p>
 {% endfor %}

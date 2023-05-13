@@ -44,6 +44,8 @@
     'type' => 'Typ',
     'text' => 'Text',
     'text_input' => 'Einfacher Text',
+    'subject' => 'Betreff',
+    'subject_comment' => 'Dieser Text wird als E-Mail-Betreff verwendet. Wenn leer, wird der Formularname verwendet.',
     'ip_hash' => 'IP (gehashed)',
     'port' => 'Port',
     'boxes_section' => 'Formulare',

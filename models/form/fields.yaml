@@ -138,12 +138,25 @@ tabs:
                             span: auto
 
 
+        send_cc:
+            label: 'offline.forms::lang.send_cc'
+            span: left
+            type: checkbox
+            default: 1
+            comment: 'offline.forms::lang.send_cc_comment'
+            tab: 'offline.forms::lang.email'
+        subject:
+            label: 'offline.forms::lang.subject'
+            span: right
+            type: text
+            comment: 'offline.forms::lang.subject_comment'
+            tab: 'offline.forms::lang.email'
         recipients:
             label: 'offline.forms::lang.recipients'
             prompt: 'offline.forms::lang.add_recipient'
             titleFrom: email
             style: collapsed
-            span: auto
+            span: left
             type: repeater
             tab: 'offline.forms::lang.email'
             form:
@@ -158,13 +171,6 @@ tabs:
                         span: auto
                         required: 0
                         type: text
-        send_cc:
-            label: 'offline.forms::lang.send_cc'
-            span: auto
-            type: checkbox
-            default: 1
-            comment: 'offline.forms::lang.send_cc_comment'
-            tab: 'offline.forms::lang.email'
         is_enabled:
             type: switch
             label: 'offline.forms::lang.is_enabled'

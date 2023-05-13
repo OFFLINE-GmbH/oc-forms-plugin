@@ -77,6 +77,9 @@ class Submission extends ExpandoModel
 
     public function afterCreate()
     {
+        // commit the deferred bindings here so that the attachment is available when sending mails.
+        $this->commitDeferred($this->sessionKey);
+
         if (count($this->form->recipients ?? []) > 0) {
             $this->sendMailToRecipients($this->form->name, $this->form->recipients);
         }
@@ -85,7 +88,7 @@ class Submission extends ExpandoModel
             // Get the recipient's email from the form data.
             $email = $this->data[$mailField['name']] ?? null;
             if ($email) {
-                $this->sendMailToRecipients($this->form->name, [['email' => $email]]);
+                $this->sendMailToRecipients($this->form->mail_subject, recipients: [['email' => $email]], isCC: true);
             }
         }
     }
@@ -107,11 +110,11 @@ class Submission extends ExpandoModel
     /**
      * Send the submission email to all provided recipients.
      */
-    public function sendMailToRecipients(string $subject, array $recipients)
+    public function sendMailToRecipients(string $subject, array $recipients, bool $isCC = false)
     {
         Mail::send(
             'offline.forms::mail.submission',
-            ['submission' => $this],
+            ['submission' => $this, 'subject' => $subject, 'isCC' => $isCC],
             function (Message $message) use ($subject, $recipients) {
                 $message->subject($subject);
                 foreach ($recipients as $recipient) {
@@ -127,7 +130,7 @@ class Submission extends ExpandoModel
     {
         collect($form->fields)
             ->filter(fn($field) => $field['_field_type'] === 'fileupload')
-            ->each(function ($field) use ($form) {
+            ->each(function ($field) {
                 $this->attachMany[$field['name']] = [
                     File::class,
                     'public' => false,

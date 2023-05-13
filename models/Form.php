@@ -14,6 +14,7 @@ use ValidationException;
  * @property boolean $spam_protection_enabled
  * @property integer $spam_limit_ip_15min
  * @property integer $spam_limit_global_1h
+ * @property string $mail_subject
  *
  * @property \October\Rain\Database\Collection<Submission> $submissions
  *
@@ -125,6 +126,14 @@ class Form extends Model
             })
             ->filter()
             ->toArray();
+    }
+
+    /**
+     * Returns the subject or the form name.
+     */
+    public function getMailSubjectAttribute(): string
+    {
+        return $this->subject ?: $this->name;
     }
 
     /**

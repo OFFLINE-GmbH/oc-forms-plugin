@@ -11,6 +11,7 @@ class CreateOfflineFormsForms extends Migration
         {
             $table->increments('id')->unsigned();
             $table->string('name');
+            $table->string('subject')->nullable();
             $table->string('slug')->nullable();
             $table->boolean('is_enabled')->default(1);
             $table->text('recipients')->nullable();

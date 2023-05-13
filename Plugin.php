@@ -6,6 +6,7 @@ use Illuminate\Support\Facades\Event;
 use OFFLINE\Forms\Models\Form;
 use OFFLINE\Forms\Models\Submission;
 use System\Classes\PluginBase;
+use System\Models\File;
 
 class Plugin extends PluginBase
 {
@@ -142,6 +143,21 @@ class Plugin extends PluginBase
                     ],
                 ]);
             });
+        });
+
+        // Override the export column value for file uploads.
+        Event::listen('backend.list.overrideColumnValueRaw', function ($listWidget, $record, $column, &$value) {
+            if (!$listWidget->model instanceof Submission) {
+                return;
+            }
+            if ($listWidget->getController()->getAction() !== 'export') {
+                return;
+            }
+            if (array_get($column->config, 'path') !== '$/offline/forms/controllers/submissions/_fileupload_column.php') {
+                return;
+            }
+
+            $value = $value->implode(fn(File $file) => "{$file->getPath()} ({$file->getFilename()})", ',');
         });
     }
 
