@@ -3,6 +3,7 @@
 namespace OFFLINE\Forms\Controllers;
 
 use Backend\Classes\Controller;
+use Backend\Widgets\Form;
 use BackendMenu;
 
 class Forms extends Controller
@@ -26,5 +27,15 @@ class Forms extends Controller
     {
         parent::__construct();
         BackendMenu::setContext('OFFLINE.Forms', 'offline-forms-main-menu', 'side-menu-forms');
+    }
+
+    public function formExtendFieldsBefore(Form $form)
+    {
+        // Remove the file upload fields if Responsiv.Uploader is not installed.
+        if (class_exists(\Responsiv\Uploader\Plugin::class)) {
+            return;
+        }
+        
+        unset($form->tabs['fields']['fields']['groups']['fileupload']);
     }
 }

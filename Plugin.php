@@ -156,7 +156,7 @@ class Plugin extends PluginBase
             if (!$listWidget->model instanceof Submission) {
                 return;
             }
-            
+
             if ($listWidget->getController()->getAction() !== 'export') {
                 return;
             }
