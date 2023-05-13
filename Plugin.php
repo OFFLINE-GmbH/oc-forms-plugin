@@ -1,4 +1,6 @@
-<?php namespace OFFLINE\Forms;
+<?php
+
+namespace OFFLINE\Forms;
 
 use Backend\Classes\NavigationManager;
 use Backend\Facades\Backend;
@@ -15,7 +17,7 @@ class Plugin extends PluginBase
         // Register OFFLINE.Boxes partials.
         \October\Rain\Support\Facades\Event::listen(
             \OFFLINE\Boxes\Classes\Events::REGISTER_PARTIAL_PATH,
-            fn() => ['$/plugins/offline/forms/partials']
+            fn () => ['$/plugins/offline/forms/partials']
         );
     }
 
@@ -27,6 +29,7 @@ class Plugin extends PluginBase
 
             // Change the URL of the main menu item to the first form.
             $item = $navigationManager->getMainMenuItem('OFFLINE.Forms', 'offline-forms-main-menu');
+
             if ($item && $firstForm = $forms->first()) {
                 $item->url = Backend::url('offline/forms/forms/submissions/' . $firstForm->id);
             }
@@ -51,6 +54,7 @@ class Plugin extends PluginBase
 
             collect($widget->model->form->fields)->each(function (array $field) use ($widget) {
                 $args = [];
+
                 switch ($field['_field_type'] ?? '') {
                     case 'section':
                         $args['type'] = 'section';
@@ -85,12 +89,14 @@ class Plugin extends PluginBase
             }
 
             $form = $widget->getController()->getFormModel();
+
             if (!$form) {
                 return;
             }
 
             collect($form->fields)->each(function (array $field) use ($widget) {
                 $args = [];
+
                 switch ($field['_field_type'] ?? '') {
                     case 'section':
                         return;
@@ -150,14 +156,16 @@ class Plugin extends PluginBase
             if (!$listWidget->model instanceof Submission) {
                 return;
             }
+            
             if ($listWidget->getController()->getAction() !== 'export') {
                 return;
             }
+
             if (array_get($column->config, 'path') !== '$/offline/forms/controllers/submissions/_fileupload_column.php') {
                 return;
             }
 
-            $value = $value->implode(fn(File $file) => "{$file->getPath()} ({$file->getFilename()})", ',');
+            $value = $value->implode(fn (File $file) => "{$file->getPath()} ({$file->getFilename()})", ',');
         });
     }
 

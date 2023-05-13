@@ -1,4 +1,6 @@
-<?php namespace OFFLINE\Forms\Controllers;
+<?php
+
+namespace OFFLINE\Forms\Controllers;
 
 use Backend;
 use Backend\Classes\Controller;
@@ -14,11 +16,13 @@ class Submissions extends Controller
     ];
 
     public $formConfig = 'config_form.yaml';
+
     public $listConfig = 'config_list.yaml';
+
     public $importExportConfig = 'config_import_export.yaml';
 
     public $requiredPermissions = [
-        'offline.forms::can_see_forms'
+        'offline.forms::can_see_forms',
     ];
 
     protected Form $formModel;
@@ -63,17 +67,19 @@ class Submissions extends Controller
 
         // Add the search query if a search term is set.
         $term = $this->getWidget('listToolbarSearch')?->getActiveTerm();
+
         if (!$term) {
             return;
         }
 
         $searchableColumns = collect($this->getWidget('list')?->getColumns() ?? [])
-            ->filter(fn($column) => $column->_searchable)
+            ->filter(fn ($column) => $column->_searchable)
             ->pluck('columnName');
 
         // Search in all searchable "data" values.
-        $query->where(fn($q) => $searchableColumns->each(fn ($column) =>
-            $q->orWhere("data->$column", 'like', "%${term}%")
+        $query->where(fn ($q) => $searchableColumns->each(
+            fn ($column)
+            => $q->orWhere("data->{$column}", 'like', "%${term}%")
         ));
     }
 
@@ -104,5 +110,4 @@ class Submissions extends Controller
     {
         return $this->formModel;
     }
-
 }

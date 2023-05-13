@@ -1,4 +1,6 @@
-<?php namespace OFFLINE\Forms\Components;
+<?php
+
+namespace OFFLINE\Forms\Components;
 
 use Cms\Classes\ComponentBase;
 use October\Rain\Argon\Argon;
@@ -7,7 +9,6 @@ use October\Rain\Support\Facades\Str;
 use OFFLINE\Forms\Models\Form;
 use OFFLINE\Forms\Models\Submission;
 use Responsiv\Uploader\Components\FileUploader;
-use System\Models\File;
 
 /**
  * Renders a form.
@@ -109,6 +110,60 @@ class RenderForm extends ComponentBase
     }
 
     /**
+     * Handle form submission.
+     *
+     * @throws ValidationException
+     */
+    public function onSubmit()
+    {
+        if (!$this->form) {
+            return;
+        }
+
+        $this->guardSpamSubmissions();
+
+        $submission = $this->getSubmissionModel();
+
+        $submission->forceFill(
+            array_except(request($this->alias), $submission->getGuarded())
+        );
+
+        $submission->save(null, post('_session_key'));
+    }
+
+    /**
+     * Return all available forms as dropdown options.
+     */
+    public function getIdOptions()
+    {
+        return Form::getFormOptions();
+    }
+
+    /**
+     * Prefix CSS classes.
+     */
+    public function classNames(string ...$classNames): string
+    {
+        return collect($classNames)
+            ->map(function (string $classNames) {
+                $classes = explode(' ', $classNames);
+
+                return collect($classes)
+                    ->map(fn (string $class) => "{$this->cssClassPrefix}{$class}")
+                    ->implode(' ');
+            })
+            ->implode(' ');
+    }
+
+    /**
+     * Helper method to convert strings to pascal case.
+     */
+    public function pascalCase(string $input): string
+    {
+        return ucfirst(Str::camel($input));
+    }
+
+    /**
      * Load and initialize the form.
      */
     protected function setupForm()
@@ -145,6 +200,7 @@ class RenderForm extends ComponentBase
                     'field' => $field['name'],
                 ],
             );
+
             if (!$component) {
                 continue;
             }
@@ -152,28 +208,6 @@ class RenderForm extends ComponentBase
             $component->bindModel($field['name'], $submission);
             $component->onRun();
         }
-    }
-
-    /**
-     * Handle form submission.
-     *
-     * @throws ValidationException
-     */
-    public function onSubmit()
-    {
-        if (!$this->form) {
-            return;
-        }
-
-        $this->guardSpamSubmissions();
-
-        $submission = $this->getSubmissionModel();
-
-        $submission->forceFill(
-            array_except(request($this->alias), $submission->getGuarded())
-        );
-
-        $submission->save(null, post('_session_key'));
     }
 
     /**
@@ -216,14 +250,6 @@ class RenderForm extends ComponentBase
     }
 
     /**
-     * Return all available forms as dropdown options.
-     */
-    public function getIdOptions()
-    {
-        return Form::getFormOptions();
-    }
-
-    /**
      * Resolve the form based on the configured id.
      */
     protected function getForm(): ?Form
@@ -236,6 +262,7 @@ class RenderForm extends ComponentBase
         }
 
         $form = Form::find($this->property('id'));
+
         if (!$form) {
             return null;
         }
@@ -257,32 +284,6 @@ class RenderForm extends ComponentBase
                 return $field;
             })
             ->toArray();
-    }
-
-    /**
-     * Prefix CSS classes.
-     */
-    public function classNames(string ...$classNames): string
-    {
-        return collect($classNames)
-            ->map(function (string $classNames) {
-                $classes = explode(' ', $classNames);
-
-                return collect($classes)
-                    ->map(function (string $class) {
-                        return "$this->cssClassPrefix{$class}";
-                    })
-                    ->implode(' ');
-            })
-            ->implode(' ');
-    }
-
-    /**
-     * Helper method to convert strings to pascal case.
-     */
-    public function pascalCase(string $input): string
-    {
-        return ucfirst(Str::camel($input));
     }
 
     /**

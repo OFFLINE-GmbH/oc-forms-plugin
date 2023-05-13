@@ -1,4 +1,6 @@
-<?php return [
+<?php
+
+return [
     'plugin' => [
         'name' => 'Forms',
         'description' => 'Simple form builder plugin',
@@ -79,6 +81,6 @@
             'use_honeypot' => 'Honeypot verwenden',
             'include_jquery' => 'jQuery automatisch einbinden',
             'include_framework' => 'AJAX Framework automatisch einbinden',
-        ]
-    ]
+        ],
+    ],
 ];

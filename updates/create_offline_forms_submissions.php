@@ -1,14 +1,15 @@
-<?php namespace OFFLINE\Forms\Updates;
+<?php
 
-use Schema;
+namespace OFFLINE\Forms\Updates;
+
 use October\Rain\Database\Updates\Migration;
+use Schema;
 
 class CreateOfflineFormsSubmissions extends Migration
 {
     public function up()
     {
-        Schema::create('offline_forms_submissions', function($table)
-        {
+        Schema::create('offline_forms_submissions', function ($table) {
             $table->increments('id')->unsigned();
             $table->integer('form_id')->unsigned();
             $table->mediumText('data')->nullable();

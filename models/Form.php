@@ -1,8 +1,9 @@
-<?php namespace OFFLINE\Forms\Models;
+<?php
+
+namespace OFFLINE\Forms\Models;
 
 use Model;
 use October\Rain\Database\Relations\HasMany;
-use RuntimeException;
 use ValidationException;
 
 /**
@@ -73,31 +74,6 @@ class Form extends Model
     }
 
     /**
-     * Set the name of each field that has no name set.
-     */
-    protected function setFieldNames(): void
-    {
-        $names = [];
-
-        $this->fields = collect($this->fields)
-            ->map(function ($field) use (&$names) {
-                if (!$field['name']) {
-                    $field['name'] = str_slug(str_replace('-', '_', $field['label']), '_');
-                }
-
-                // Ensure names are unique.
-                while (in_array($field['name'], $names, true)) {
-                    $field['name'] .= '_' . str_random(5);
-                }
-
-                $names[] = $field['name'];
-
-                return $field;
-            })
-            ->toArray();
-    }
-
-    /**
      * Return validation rules for this form.
      */
     public function getValidationRules(): array
@@ -142,7 +118,7 @@ class Form extends Model
     public function getFieldNames(): array
     {
         return collect($this->fields)
-            ->mapWithKeys(fn(array $field) => [$field['name'] => $field['label'] ?? $field['name']])
+            ->mapWithKeys(fn (array $field) => [$field['name'] => $field['label'] ?? $field['name']])
             ->toArray();
     }
 
@@ -152,7 +128,7 @@ class Form extends Model
     public function getRelevantFields(): array
     {
         return collect($this->fields)
-            ->filter(fn(array $field) => $field['_field_type'] !== 'section')
+            ->filter(fn (array $field) => $field['_field_type'] !== 'section')
             ->toArray();
     }
 
@@ -162,6 +138,31 @@ class Form extends Model
     public function getEmailField(): ?array
     {
         return collect($this->fields)
-            ->first(fn(array $field) => ($field['type'] ?? '') === 'email');
+            ->first(fn (array $field) => ($field['type'] ?? '') === 'email');
+    }
+
+    /**
+     * Set the name of each field that has no name set.
+     */
+    protected function setFieldNames(): void
+    {
+        $names = [];
+
+        $this->fields = collect($this->fields)
+            ->map(function ($field) use (&$names) {
+                if (!$field['name']) {
+                    $field['name'] = str_slug(str_replace('-', '_', $field['label']), '_');
+                }
+
+                // Ensure names are unique.
+                while (in_array($field['name'], $names, true)) {
+                    $field['name'] .= '_' . str_random(5);
+                }
+
+                $names[] = $field['name'];
+
+                return $field;
+            })
+            ->toArray();
     }
 }

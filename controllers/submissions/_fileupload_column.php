@@ -9,9 +9,9 @@
     /** @var \October\Rain\Database\Collection $value */
     foreach ($value as $file):
         ?>
-        <a href="<?= e($file->getPath()) ?>" target="_blank">
+        <a href="<?= e($file->getPath()); ?>" target="_blank">
             <?php if ($file->isImage()): ?>
-                <img src="<?= e($file->getThumb(40, 40)) ?>" alt="<?= e($file->file_name) ?>">
+                <img src="<?= e($file->getThumb(40, 40)); ?>" alt="<?= e($file->file_name); ?>">
             <?php else: ?>
                 <div
                     style="
@@ -27,7 +27,7 @@
                     align-items: center;
                 ">
                     <span class="oc-icon-download"></span>
-                    <?= e($file->file_name) ?>
+                    <?= e($file->file_name); ?>
                 </div>
             <?php endif; ?>
         </a>

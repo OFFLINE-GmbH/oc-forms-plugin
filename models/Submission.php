@@ -1,4 +1,6 @@
-<?php namespace OFFLINE\Forms\Models;
+<?php
+
+namespace OFFLINE\Forms\Models;
 
 use Illuminate\Mail\Message;
 use October\Rain\Argon\Argon;
@@ -20,18 +22,6 @@ class Submission extends ExpandoModel
     use \October\Rain\Database\Traits\Validation;
     use \October\Rain\Database\Traits\SoftDelete;
 
-    protected $expandoColumn = 'data';
-    protected $expandoPassthru = [
-        'form_id',
-        'ip_hash',
-        'port',
-        'created_at',
-        'updated_at',
-        'deleted_at',
-    ];
-
-    protected $dates = ['created_at', 'updated_at', 'deleted_at'];
-
     public $table = 'offline_forms_submissions';
 
     public $rules = [
@@ -43,6 +33,19 @@ class Submission extends ExpandoModel
     public $belongsTo = [
         'form' => Form::class,
     ];
+
+    protected $expandoColumn = 'data';
+
+    protected $expandoPassthru = [
+        'form_id',
+        'ip_hash',
+        'port',
+        'created_at',
+        'updated_at',
+        'deleted_at',
+    ];
+
+    protected $dates = ['created_at', 'updated_at', 'deleted_at'];
 
     protected $fillable = [];
 
@@ -87,6 +90,7 @@ class Submission extends ExpandoModel
         if ($this->form->send_cc && $mailField = $this->form->getEmailField()) {
             // Get the recipient's email from the form data.
             $email = $this->data[$mailField['name']] ?? null;
+
             if ($email) {
                 $this->sendMailToRecipients($this->form->mail_subject, recipients: [['email' => $email]], isCC: true);
             }
@@ -117,10 +121,12 @@ class Submission extends ExpandoModel
             ['submission' => $this, 'subject' => $subject, 'isCC' => $isCC],
             function (Message $message) use ($subject, $recipients) {
                 $message->subject($subject);
+
                 foreach ($recipients as $recipient) {
                     $message->to(array_get($recipient, 'email'), array_get($recipient, 'name'));
                 }
-            });
+            }
+        );
     }
 
     /**
@@ -129,7 +135,7 @@ class Submission extends ExpandoModel
     public function setRelationsForForm(Form $form)
     {
         collect($form->fields)
-            ->filter(fn($field) => $field['_field_type'] === 'fileupload')
+            ->filter(fn ($field) => $field['_field_type'] === 'fileupload')
             ->each(function ($field) {
                 $this->attachMany[$field['name']] = [
                     File::class,
