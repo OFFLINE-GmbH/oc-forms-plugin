@@ -196,11 +196,17 @@ Event::listen(
     \OFFLINE\Forms\Classes\Events::FORM_EXTEND,
     function (\OFFLINE\Forms\Models\Form $form, string $context, $widget) {
             if ($context === Contexts::FIELDS) {
+                // Form fields are being extended.
                 info('$widget is a Backend Form widget');
             } else if ($context === Contexts::COLUMNS) {
+                // List columns are being extended.
                 info('$widget is a Backend Lists widget');
             } else if ($context === Contexts::COMPONENT) {
+                // The form is rendered in the component.
                 info('$widget is the RenderForm component');
+            } else if ($context === Contexts::MAIL) {
+                // The mail for a form submission is being sent.
+                info('$widget is null');
             }
 
             // Add a field for a specific form.

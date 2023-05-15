@@ -9,4 +9,6 @@ class Contexts
     public const COLUMNS = 'columns';
 
     public const COMPONENT = 'component';
+
+    public const MAIL = 'mail';
 }

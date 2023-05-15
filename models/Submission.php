@@ -6,7 +6,10 @@ use Illuminate\Mail\Message;
 use October\Rain\Argon\Argon;
 use October\Rain\Database\ExpandoModel;
 use October\Rain\Database\Relations\BelongsTo;
+use October\Rain\Support\Facades\Event;
 use October\Rain\Support\Facades\Mail;
+use OFFLINE\Forms\Classes\Contexts;
+use OFFLINE\Forms\Classes\Events;
 use System\Models\File;
 
 /**
@@ -118,9 +121,15 @@ class Submission extends ExpandoModel
      */
     public function sendMailToRecipients(string $subject, array $recipients, bool $isCC = false)
     {
+        Event::fire(Events::FORM_EXTEND, [&$this->form, Contexts::MAIL, null]);
+
         Mail::send(
             'offline.forms::mail.submission',
-            ['submission' => $this, 'subject' => $subject, 'isCC' => $isCC],
+            [
+                'submission' => $this,
+                'subject' => $subject,
+                'isCC' => $isCC,
+            ],
             function (Message $message) use ($subject, $recipients) {
                 $message->subject($subject);
 
