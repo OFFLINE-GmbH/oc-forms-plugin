@@ -142,7 +142,7 @@ tabs:
             label: 'offline.forms::lang.send_cc'
             span: left
             type: checkbox
-            default: 1
+            default: 0
             comment: 'offline.forms::lang.send_cc_comment'
             tab: 'offline.forms::lang.email'
         subject:

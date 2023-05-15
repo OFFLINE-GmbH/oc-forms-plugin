@@ -4,6 +4,8 @@ namespace OFFLINE\Forms\Models;
 
 use Model;
 use October\Rain\Database\Relations\HasMany;
+use October\Rain\Database\Scopes\MultisiteScope;
+use PhpParser\Node\Expr\AssignOp\Mul;
 use ValidationException;
 
 /**
@@ -28,8 +30,13 @@ class Form extends Model
 {
     use \October\Rain\Database\Traits\Validation;
     use \October\Rain\Database\Traits\Sluggable;
+    use \October\Rain\Database\Traits\Multisite;
 
     public $table = 'offline_forms_forms';
+
+    public $propagatable = ['slug', 'is_enabled', 'is_archived', 'recipients', 'send_cc', 'spam_protection_enabled', 'spam_limit_ip_15min', 'spam_limit_global_1h'];
+
+    protected $propagatableSync = true;
 
     public $rules = [
         'name' => 'required',
@@ -79,6 +86,11 @@ class Form extends Model
         }
 
         $this->setFieldNames();
+    }
+
+    public function scopeForAllSites($query)
+    {
+        $query->withoutGlobalScope(MultisiteScope::class);
     }
 
     public static function getFormOptions()

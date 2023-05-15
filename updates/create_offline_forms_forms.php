@@ -24,6 +24,8 @@ class CreateOfflineFormsForms extends Migration
             $table->integer('spam_limit_global_1h')->default(10);
             $table->string('submit_button_label')->default('');
             $table->string('success_message');
+            $table->integer('site_id')->nullable()->index();
+            $table->integer('site_root_id')->nullable()->index();
             $table->timestamp('created_at')->nullable();
             $table->timestamp('updated_at')->nullable();
         });

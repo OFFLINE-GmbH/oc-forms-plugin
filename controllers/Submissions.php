@@ -32,7 +32,13 @@ class Submissions extends Controller
         parent::__construct();
         BackendMenu::setContext('OFFLINE.Forms', 'offline-forms-main-menu', 'side-menu-forms');
 
-        $this->formModel = Form::findOrFail($this->params[0] ?? -1);
+        $this->formModel = Form::query()
+            ->where(function ($query) {
+                $query
+                    ->where('id', $this->params[0] ?? -1)
+                    ->orWhere('site_root_id', $this->params[0] ?? -1);
+            })
+            ->firstOrFail();
     }
 
     public function index($formId = null)
@@ -63,7 +69,15 @@ class Submissions extends Controller
 
     public function listExtendQuery($query)
     {
-        $query->where('form_id', $this->formModel->id)->with('form');
+        $query->where(function ($query) {
+            // Limit the query to submissions from the current form.
+            $query->where('form_id', $this->formModel->id);
+
+            // Include all submissions from the same form on other sites as well.
+            $query->orWhereHas('form', function ($q) {
+                $q->forAllSites()->where('site_root_id', $this->formModel->site_root_id);
+            });
+        });
 
         // Add the search query if a search term is set.
         $term = $this->getWidget('listToolbarSearch')?->getActiveTerm();
@@ -73,13 +87,12 @@ class Submissions extends Controller
         }
 
         $searchableColumns = collect($this->getWidget('list')?->getColumns() ?? [])
-            ->filter(fn ($column) => $column->_searchable)
+            ->filter(fn($column) => $column->_searchable)
             ->pluck('columnName');
 
         // Search in all searchable "data" values.
-        $query->where(fn ($q) => $searchableColumns->each(
-            fn ($column)
-            => $q->orWhere("data->{$column}", 'like', "%${term}%")
+        $query->where(fn($q) => $searchableColumns->each(
+            fn($column) => $q->orWhere("data->{$column}", 'like', "%${term}%")
         ));
     }
 

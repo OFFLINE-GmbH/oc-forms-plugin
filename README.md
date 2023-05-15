@@ -17,6 +17,7 @@ composer require offline/oc-forms-plugin
 - View submissions in the backend
 - Send email notifications on form submission
 - Export submissions to CSV
+- Multisite support
 - Optional file uploads using [Responsiv.Uploader](https://octobercms.com/plugin/responsiv-uploader)
 - Integrates with [OFFLINE.Boxes](https://octobercms.com/plugin/offline-boxes) out-of-the-box.
 

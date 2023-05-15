@@ -31,7 +31,7 @@ class Submission extends ExpandoModel
     public array $attributeNames = [];
 
     public $belongsTo = [
-        'form' => Form::class,
+        'form' => [Form::class, 'scope' => 'forAllSites'],
     ];
 
     protected $expandoColumn = 'data';
@@ -61,7 +61,9 @@ class Submission extends ExpandoModel
 
     public function afterFetch()
     {
-        $this->setRelationsForForm($this->form);
+        if ($this->form) {
+            $this->setRelationsForForm($this->form);
+        }
     }
 
     public function beforeCreate()
@@ -135,7 +137,7 @@ class Submission extends ExpandoModel
     public function setRelationsForForm(Form $form)
     {
         collect($form->fields)
-            ->filter(fn ($field) => $field['_field_type'] === 'fileupload')
+            ->filter(fn($field) => $field['_field_type'] === 'fileupload')
             ->each(function ($field) {
                 $this->attachMany[$field['name']] = [
                     File::class,
