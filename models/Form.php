@@ -2,6 +2,7 @@
 
 namespace OFFLINE\Forms\Models;
 
+use Closure;
 use Model;
 use October\Rain\Database\Relations\HasMany;
 use October\Rain\Database\Scopes\MultisiteScope;
@@ -200,23 +201,39 @@ class Form extends Model
     }
 
     /**
-     * This helper method transfers all field names to the placeholder attribute
-     * for fields that have no placeholder set.
-     *
-     * This is useful for "floating label" forms where a placeholder is required.
+     * Apply a callback to each field.
      */
-    public function applyPlaceholderToFields(): void
+    public function mapFields(Closure $callback): void
     {
         $fields = $this->fields;
 
         foreach($fields as &$field) {
-            if (!array_get($field, 'placeholder')) {
-                $field['placeholder'] = $field['label'] ?? '';
-            }
+            $field = $callback($field);
         }
 
         unset($field);
 
         $this->fields = $fields;
+    }
+
+    /**
+     * This helper method transfers all field names to the placeholder attribute
+     * for fields that have no placeholder set.
+     *
+     * This is useful for "floating label" forms where a placeholder is required.
+     *
+     * You can provide an optional mutation function that will be called for each field.
+     */
+    public function applyPlaceholderToFields(?Closure $mutationFn = null): void
+    {
+        $this->mapFields(function(array $field) use ($mutationFn) {
+            if (!array_get($field, 'placeholder')) {
+                $field['placeholder'] = $field['label'] ?? '';
+                if ($mutationFn) {
+                    $field = $mutationFn($field);
+                }
+            }
+            return $field;
+        });
     }
 }

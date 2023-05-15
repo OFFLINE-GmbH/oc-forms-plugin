@@ -5,6 +5,9 @@
     type="{{ field.type }}"
     name="{{ field.id }}"
     id="{{ field.id }}"
+    {% if field.value %}
+        value="{{ field.value }}"
+    {% endif %}
     {% if field.placeholder %}
         placeholder="{{ field.placeholder }}"
     {% endif %}

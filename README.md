@@ -140,12 +140,38 @@ form:
 
 ## Helper methods
 
+### `mapFields`
+
+Apply a transform to each field in the form. The transform will receive the field as its first argument.
+
+```php
+$form->mapFields(function (array $field) {
+    if (array_get($field, 'is_required')) {
+        $field['label'] .= ' (required)';
+    }
+
+    return $field;
+});
+```
+
 ### `applyPlaceholderToFields`
 
 The `Form` model provides a simple helper method to apply placeholders to all fields
 that have no placeholder set. The `label` property of the field will be used as the placeholder.
 
 This is useful for "floating label" form implementations where each field must have a placeholder.
+
+You can pass in an optional transform function.
+
+```php
+$form->applyPlaceholderToFields(function(array $field) {
+    if (array_get($field, 'is_required')) {
+        $field['placeholder'] .= ' *';
+    }
+
+    return $field;
+});
+```
 
 ## Events
 
@@ -154,8 +180,11 @@ This is useful for "floating label" form implementations where each field must h
 Use this event to change the form before it is rendered.
 
 ```php
-Event::listen(\OFFLINE\Forms\Classes\Events::FORM_EXTEND, function (Form $form) {
-    // Do anything with the form or $form->fields here.
-    $form->applyPlaceholderToFields();
-});
+Event::listen(
+    \OFFLINE\Forms\Classes\Events::FORM_EXTEND,
+    function (\OFFLINE\Forms\Models\Form $form, \OFFLINE\Forms\Components\RenderForm $component) {
+        // Do anything with the form or $form->fields here.
+        $form->applyPlaceholderToFields();
+    }
+);
 ```

@@ -273,9 +273,9 @@ class RenderForm extends ComponentBase
             return null;
         }
 
-        $form->fields = $this->processFormFields($form->fields);
+        Event::fire(Events::FORM_EXTEND, [&$form, $this]);
 
-        Event::fire(Events::FORM_EXTEND, [&$form]);
+        $form->fields = $this->processFormFields($form->fields);
 
         return $form;
     }
