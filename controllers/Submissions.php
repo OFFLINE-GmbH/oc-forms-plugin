@@ -6,6 +6,7 @@ use Backend;
 use Backend\Classes\Controller;
 use BackendMenu;
 use OFFLINE\Forms\Models\Form;
+use OFFLINE\Forms\Models\Submission;
 
 class Submissions extends Controller
 {
@@ -108,7 +109,7 @@ class Submissions extends Controller
 
     public function formGetRedirectUrl($context = null, $model = null)
     {
-        if (str_contains($context, 'close')) {
+        if (str_contains($context, 'close') || str_contains($context, 'delete')) {
             return Backend::url('offline/forms/submissions/index/' . $this->formModel->id);
         }
 
@@ -117,9 +118,12 @@ class Submissions extends Controller
 
     public function formCreateModelObject()
     {
+        /** @var Submission $model */
         $model = $this->asExtension(Backend\Behaviors\FormController::class)->formCreateModelObject();
 
         $model->form_id = $this->formModel->id;
+
+        $model->setRelationsForForm($this->formModel);
 
         return $model;
     }
