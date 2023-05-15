@@ -1,6 +1,4 @@
 v1.0.1:
     - 'Initial version of the plugin.'
     - create_offline_forms_forms.php
-v1.0.2:
-    - 'Created table offline_forms_submissions'
     - create_offline_forms_submissions.php
