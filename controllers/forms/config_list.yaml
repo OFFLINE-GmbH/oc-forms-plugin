@@ -1,6 +1,7 @@
 title: 'offline.forms::lang.forms'
 modelClass: OFFLINE\Forms\Models\Form
 list: $/offline/forms/models/form/columns.yaml
+filter: $/offline/forms/models/form/scopes.yaml
 recordUrl: 'offline/forms/forms/update/:id'
 noRecordsMessage: 'backend::lang.list.no_records'
 recordsPerPage: 20

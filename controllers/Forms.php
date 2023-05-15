@@ -35,7 +35,18 @@ class Forms extends Controller
         if (class_exists(\Responsiv\Uploader\Plugin::class)) {
             return;
         }
-        
+
         unset($form->tabs['fields']['fields']['groups']['fileupload']);
+    }
+
+    public function listInjectRowClass($record)
+    {
+        if ($record->is_archived) {
+            return 'safe strike';
+        }
+
+        if (!$record->is_enabled) {
+            return 'disabled';
+        }
     }
 }

@@ -15,6 +15,7 @@ class CreateOfflineFormsForms extends Migration
             $table->string('subject')->nullable();
             $table->string('slug')->nullable();
             $table->boolean('is_enabled')->default(1);
+            $table->boolean('is_archived')->default(0);
             $table->text('recipients')->nullable();
             $table->mediumText('fields')->nullable();
             $table->boolean('send_cc')->default(0);

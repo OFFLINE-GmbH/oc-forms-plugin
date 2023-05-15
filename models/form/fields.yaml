@@ -178,6 +178,17 @@ tabs:
             span: left
             comment: 'offline.forms::lang.is_enabled_comment'
             tab: 'offline.forms::lang.config'
+        is_archived:
+            type: switch
+            label: 'offline.forms::lang.is_archived'
+            default: 0
+            span: right
+            comment: 'offline.forms::lang.is_archived_comment'
+            tab: 'offline.forms::lang.config'
+            trigger:
+                action: enable
+                field: is_enabled
+                condition: unchecked
         submit_button_label:
             type: text
             label: 'offline.forms::lang.submit_button_label'

@@ -20,6 +20,20 @@ columns:
         type: switch
         searchable: true
         sortable: true
+        invisible: true
+    submissions:
+        label: 'offline.forms::lang.submissions'
+        type: number
+        searchable: true
+        invisible: false
+        sortable: true
+        relationCount: true
+        relation: submissions
+    recipients:
+        label: 'offline.forms::lang.recipients'
+        type: partial
+        searchable: true
+        sortable: false
     send_cc:
         label: 'offline.forms::lang.send_cc'
         type: text

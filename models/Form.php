@@ -11,6 +11,8 @@ use ValidationException;
  * @property string $success_message
  * @property array $fields
  * @property boolean $send_cc
+ * @property boolean $is_enabled
+ * @property boolean $is_archived
  * @property array{'email': string, 'name': string} $recipients
  * @property boolean $spam_protection_enabled
  * @property integer $spam_limit_ip_15min
@@ -65,6 +67,16 @@ class Form extends Model
 
     public function beforeSave()
     {
+        // Enabled forms can't be archived.
+        if ($this->is_enabled) {
+            $this->is_archived = false;
+        }
+
+        // Archived forms can't be enabled.
+        if ($this->is_archived) {
+            $this->is_enabled = false;
+        }
+
         $this->setFieldNames();
     }
 
@@ -102,6 +114,14 @@ class Form extends Model
             })
             ->filter()
             ->toArray();
+    }
+
+    /**
+     * True if the form is enabled and not archived.
+     */
+    public function getIsAvailableAttribute(): bool
+    {
+        return $this->is_enabled && !$this->is_archived;
     }
 
     /**

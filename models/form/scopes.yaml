@@ -1,0 +1,11 @@
+scopes:
+    is_enabled:
+        type: checkbox
+        default: 0
+        label: 'offline.forms::lang.is_enabled'
+        conditions: is_enabled = true
+    hide_archived:
+        type: checkbox
+        default: 1
+        label: 'offline.forms::lang.hide_archived'
+        conditions: is_archived = false

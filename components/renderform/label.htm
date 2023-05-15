@@ -1,3 +1,7 @@
 <label class="{{ __SELF__.classNames('form-label', 'form-label--for-type-' ~ field._field_type) }}" for="{{ field.id }}">
     {{ field.label }}
+
+    {% if field.is_required %}
+        <span class="{{  __SELF__.classNames('form-label__required')  }}">*</span>
+    {% endif %}
 </label>

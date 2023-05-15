@@ -25,7 +25,7 @@ class Plugin extends PluginBase
     {
         // Add a submenu item for each Form in the backend menu.
         Event::listen('backend.menu.extendItems', function (NavigationManager $navigationManager) {
-            $forms = Form::get();
+            $forms = Form::where('is_archived', false)->get();
 
             // Change the URL of the main menu item to the first form.
             $item = $navigationManager->getMainMenuItem('OFFLINE.Forms', 'offline-forms-main-menu');
