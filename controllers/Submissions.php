@@ -67,6 +67,11 @@ class Submissions extends Controller
         return $this->asExtension(Backend\Behaviors\FormController::class)->update_onSave($submissionId);
     }
 
+    public function update_onDelete($formId = null, $submissionId = null)
+    {
+        return $this->asExtension(Backend\Behaviors\FormController::class)->update_onDelete($submissionId);
+    }
+
     public function listExtendQuery($query)
     {
         $query->where(function ($query) {
