@@ -78,6 +78,9 @@ return [
     'fileupload_max_files_comment' => 'Es können maximal so viele Dateien hochgeladen werden, leer lassen für keine Einschränkung',
     'fileupload_max_size' => 'Max. Dateigröße (in MB)',
     'fileupload_max_size_comment' => 'Leer lassen für keine Einschränkung',
+    'dropdown' => 'Auswahlliste',
+    'options' => 'Optionen',
+    'number' => 'Zahl',
     'components' => [
         'render_form' => [
             'name' => 'Formular',

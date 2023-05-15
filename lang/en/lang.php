@@ -78,6 +78,9 @@ return [
     'fileupload_max_files_comment' => 'Leave blank for no limitations',
     'fileupload_max_size' => 'Max. file size (in MB)',
     'fileupload_max_size_comment' => 'Leave blank for no limitations',
+    'dropdown' => 'Dropdown',
+    'options' => 'Options',
+    'number' => 'Number',
     'components' => [
         'render_form' => [
             'name' => 'Form',

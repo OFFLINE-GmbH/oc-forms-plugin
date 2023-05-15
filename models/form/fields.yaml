@@ -42,6 +42,7 @@ tabs:
                             options:
                                 text: 'offline.forms::lang.text_input'
                                 email: 'offline.forms::lang.email'
+                                number: 'offline.forms::lang.number'
                         placeholder:
                             label: 'offline.forms::lang.placeholder'
                             comment: 'offline.forms::lang.placeholder_comment'
@@ -129,6 +130,40 @@ tabs:
                             default: 1
                             label: 'offline.forms::lang.is_required'
 
+                dropdown:
+                    name: 'offline.forms::lang.dropdown'
+                    description: 'offline.forms::lang.dropdown'
+                    icon: icon-list-ul
+                    fields:
+                        label:
+                            label: 'offline.forms::lang.label'
+                            comment: 'offline.forms::lang.label_comment'
+                            type: text
+                            span: auto
+                            required: true
+                        name:
+                            label: 'offline.forms::lang.name'
+                            comment: 'offline.forms::lang.name_comment'
+                            type: text
+                            span: auto
+                            required: false
+                        options:
+                            label: 'offline.forms::lang.options'
+                            type: repeater
+                            span: full
+                            required: true
+                            form:
+                                fields:
+                                    label:
+                                        label: 'offline.forms::lang.label'
+                                        type: text
+                                        span: full
+                                        required: true
+                        is_required:
+                            type: checkbox
+                            default: 1
+                            label: 'offline.forms::lang.is_required'
+
                 section:
                     name: 'offline.forms::lang.section'
                     description: 'offline.forms::lang.section'
@@ -142,7 +177,6 @@ tabs:
                             label: 'offline.forms::lang.subtitle'
                             type: text
                             span: auto
-
 
         send_cc:
             label: 'offline.forms::lang.send_cc'

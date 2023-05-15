@@ -1,0 +1,14 @@
+{% partial __SELF__ ~ '::label' field=field %}
+
+<select
+    class="{{ __SELF__.classNames('form-control', 'form-control--' ~ field.type) }}"
+    name="{{ field.id }}"
+    id="{{ field.id }}"
+>
+    <option style="display: none;">-- {{ field.label }}</option>
+    {% for option in field.options %}
+        <option value="{{ option.value | default(option.label) }}">
+            {{ option.label }}
+        </option>
+    {% endfor %}
+</select>
