@@ -120,6 +120,10 @@ class RenderForm extends ComponentBase
             return;
         }
 
+        if (!$this->form->is_available) {
+            throw new ValidationException(['_global' => 'This form is currently unavailable.']);
+        }
+
         $this->guardSpamSubmissions();
 
         $submission = $this->getSubmissionModel();
@@ -217,7 +221,7 @@ class RenderForm extends ComponentBase
     {
         if ($this->useHoneypot && post('_hp')) {
             throw new ValidationException([
-                'submit' => trans('offline.forms::lang.spam_protection_honeypot'),
+                '_global' => trans('offline.forms::lang.spam_protection_honeypot'),
             ]);
         }
 
@@ -233,7 +237,7 @@ class RenderForm extends ComponentBase
 
         if ($messageCountIp > $this->form->spam_limit_ip_15min) {
             throw new ValidationException([
-                'submit' => trans('offline.forms::lang.spam_protection_15_error'),
+                '_global' => trans('offline.forms::lang.spam_protection_15_error'),
             ]);
         }
 
@@ -244,7 +248,7 @@ class RenderForm extends ComponentBase
 
         if ($messageCountGlobal > $this->form->spam_limit_global_1h) {
             throw new ValidationException([
-                'submit' => trans('offline.forms::lang.spam_protection_global_error'),
+                '_global' => trans('offline.forms::lang.spam_protection_global_error'),
             ]);
         }
     }

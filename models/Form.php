@@ -13,6 +13,7 @@ use ValidationException;
  * @property boolean $send_cc
  * @property boolean $is_enabled
  * @property boolean $is_archived
+ * @property boolean $is_available
  * @property array{'email': string, 'name': string} $recipients
  * @property boolean $spam_protection_enabled
  * @property integer $spam_limit_ip_15min

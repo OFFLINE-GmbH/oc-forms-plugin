@@ -6,4 +6,4 @@
     {{ __SELF__.form.submit_button_label | default('offline.forms::lang.submit' | trans) }}
 </button>
 
-{% partial __SELF__ ~ '::validation' field={name: "submit"} %}
+{% partial __SELF__ ~ '::validation' field={name: '_global'} %}

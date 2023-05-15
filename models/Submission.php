@@ -107,7 +107,7 @@ class Submission extends ExpandoModel
     {
         // Add a generic error to display beside the submit button.
         if ($this->validationErrors->any() && !$this->validationErrors->has('submit')) {
-            $this->validationErrors->add('submit', trans('offline.forms::lang.submit_error'));
+            $this->validationErrors->add('_global', trans('offline.forms::lang.submit_error'));
         }
     }
 
