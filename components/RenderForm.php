@@ -192,7 +192,7 @@ class RenderForm extends ComponentBase
         $submission = $this->getSubmissionModel();
 
         foreach ($this->form->fields as $field) {
-            if ($field['_field_type'] !== 'fileupload') {
+            if (array_get($field, '_field_type') !== 'fileupload') {
                 continue;
             }
 
