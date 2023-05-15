@@ -5,7 +5,9 @@ namespace OFFLINE\Forms\Components;
 use Cms\Classes\ComponentBase;
 use October\Rain\Argon\Argon;
 use October\Rain\Exception\ValidationException;
+use October\Rain\Support\Facades\Event;
 use October\Rain\Support\Facades\Str;
+use OFFLINE\Forms\Classes\Events;
 use OFFLINE\Forms\Models\Form;
 use OFFLINE\Forms\Models\Submission;
 use Responsiv\Uploader\Components\FileUploader;
@@ -272,6 +274,8 @@ class RenderForm extends ComponentBase
         }
 
         $form->fields = $this->processFormFields($form->fields);
+
+        Event::fire(Events::FORM_EXTEND, [&$form]);
 
         return $form;
     }

@@ -198,4 +198,25 @@ class Form extends Model
             })
             ->toArray();
     }
+
+    /**
+     * This helper method transfers all field names to the placeholder attribute
+     * for fields that have no placeholder set.
+     *
+     * This is useful for "floating label" forms where a placeholder is required.
+     */
+    public function applyPlaceholderToFields(): void
+    {
+        $fields = $this->fields;
+
+        foreach($fields as &$field) {
+            if (!array_get($field, 'placeholder')) {
+                $field['placeholder'] = $field['label'] ?? '';
+            }
+        }
+
+        unset($field);
+
+        $this->fields = $fields;
+    }
 }

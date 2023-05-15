@@ -137,3 +137,25 @@ form:
             emptyOption: 'offline.forms::lang.form_empty_option'
             options: '\OFFLINE\Forms\Models\Form::getFormOptions'
 ```
+
+## Helper methods
+
+### `applyPlaceholderToFields`
+
+The `Form` model provides a simple helper method to apply placeholders to all fields
+that have no placeholder set. The `label` property of the field will be used as the placeholder.
+
+This is useful for "floating label" form implementations where each field must have a placeholder.
+
+## Events
+
+### `offline.forms::form.extend`
+
+Use this event to change the form before it is rendered.
+
+```php
+Event::listen(\OFFLINE\Forms\Classes\Events::FORM_EXTEND, function (Form $form) {
+    // Do anything with the form or $form->fields here.
+    $form->applyPlaceholderToFields();
+});
+```

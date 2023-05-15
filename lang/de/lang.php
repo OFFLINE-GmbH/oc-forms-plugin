@@ -23,6 +23,8 @@ return [
     'is_enabled_comment' => 'Formular wird auf der Website angezeigt',
     'is_archived' => 'Ist archiviert',
     'is_archived_comment' => 'Archivierte Formulare werden im Backend nicht mehr angezeigt',
+    'placeholder' => 'Platzhalter',
+    'placeholder_comment' => 'Wird im leeren Feld angezeigt',
     'hide_archived' => 'Verstecke archivierte',
     'spam_protection' => 'Spamschutz',
     'spam_protection_enabled' => 'Spamschutz aktiv',

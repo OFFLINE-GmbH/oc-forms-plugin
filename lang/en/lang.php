@@ -23,6 +23,8 @@ return [
     'is_enabled_comment' => 'Form will be displayed on the website',
     'is_archived' => 'Is archived',
     'is_archived_comment' => 'Archived forms are hidden in the backend',
+    'placeholder' => 'Placeholder',
+    'placeholder_comment' => 'Is displayed in the empty field',
     'hide_archived' => 'Hide archived',
     'spam_protection' => 'SPAM Protection',
     'spam_protection_enabled' => 'Enable SPAM Protection',

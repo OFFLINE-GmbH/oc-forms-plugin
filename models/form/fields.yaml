@@ -32,24 +32,27 @@ tabs:
                             label: 'offline.forms::lang.label'
                             comment: 'offline.forms::lang.label_comment'
                             type: text
+                            span: auto
                             required: true
-                            span: row
-                            spanClass: 'col-md-4'
                         type:
                             label: 'offline.forms::lang.type'
                             type: dropdown
-                            span: row
-                            spanClass: 'col-md-4'
                             required: true
+                            span: auto
                             options:
                                 text: 'offline.forms::lang.text_input'
                                 email: 'offline.forms::lang.email'
+                        placeholder:
+                            label: 'offline.forms::lang.placeholder'
+                            comment: 'offline.forms::lang.placeholder_comment'
+                            type: text
+                            span: auto
+                            required: false
                         name:
                             label: 'offline.forms::lang.name'
                             comment: 'offline.forms::lang.name_comment'
                             type: text
-                            span: row
-                            spanClass: 'col-md-4'
+                            span: auto
                             required: false
                         is_required:
                             type: checkbox
@@ -66,19 +69,22 @@ tabs:
                             comment: 'offline.forms::lang.label_comment'
                             type: text
                             required: true
-                            span: row
-                            spanClass: 'col-md-4'
+                            span: auto
                         rows:
                             label: 'offline.forms::lang.rows'
                             type: number
-                            span: row
-                            spanClass: 'col-md-4'
+                            span: auto
+                        placeholder:
+                            label: 'offline.forms::lang.placeholder'
+                            comment: 'offline.forms::lang.placeholder_comment'
+                            type: text
+                            span: auto
+                            required: false
                         name:
                             label: 'offline.forms::lang.name'
                             comment: 'offline.forms::lang.name_comment'
                             type: text
-                            span: row
-                            spanClass: 'col-md-4'
+                            span: auto
                             required: false
                         is_required:
                             type: checkbox

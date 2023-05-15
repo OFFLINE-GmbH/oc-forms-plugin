@@ -5,4 +5,7 @@
     name="{{ field.id }}"
     id="{{ field.id }}"
     rows="{{ field.rows }}"
+    {% if field.placeholder %}
+        placeholder="{{ field.placeholder }}"
+    {% endif %}
 ></textarea>
