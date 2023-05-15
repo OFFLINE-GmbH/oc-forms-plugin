@@ -12,15 +12,6 @@ use System\Models\File;
 
 class Plugin extends PluginBase
 {
-    public function register()
-    {
-        // Register OFFLINE.Boxes partials.
-        \October\Rain\Support\Facades\Event::listen(
-            \OFFLINE\Boxes\Classes\Events::REGISTER_PARTIAL_PATH,
-            fn () => ['$/plugins/offline/forms/partials']
-        );
-    }
-
     public function boot()
     {
         // Add a submenu item for each Form in the backend menu.

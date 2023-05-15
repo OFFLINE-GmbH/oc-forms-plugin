@@ -80,6 +80,7 @@ Override a field by its name. To do so, create a partial with the following name
 ```bash
 _name_{fieldName}.htm
 # Example: _name_address.htm
+# Important: The field name is sluggified. So "Your Name" becomes "your-name".
 ```
 
 ##### Type overrides
@@ -95,3 +96,44 @@ _type_{fieldType}.htm
 
 Take a look at the [default partials](./components/renderform) of the `renderForm` component.
 You can override any other partial like the `label` or the `validation` message.
+
+
+## OFFLINE.Boxes integration
+
+To make the `renderForm` component available in Boxes, use the following partial:
+
+### form.htm
+
+```twig
+{% component box.uniqueComponentAlias('renderForm') %}
+```
+
+### form.yaml
+
+```yaml
+handle: OFFLINE.Forms::forms
+name: 'offline.forms::lang.forms'
+section: 'offline.forms::lang.boxes_section'
+
+validation:
+    rules:
+        form: required
+
+components:
+    renderForm:
+        uniqueAlias: true
+        # properties:
+        #   formClasses: 'floating-label'
+        #   cssPrefix: 'prefix-'
+        #   includeJQuery: true
+        #   includeFramework: true
+
+form:
+    fields:
+        form:
+            label: 'offline.forms::lang.form'
+            type: dropdown
+            span: full
+            emptyOption: 'offline.forms::lang.form_empty_option'
+            options: '\OFFLINE\Forms\Models\Form::getFormOptions'
+```

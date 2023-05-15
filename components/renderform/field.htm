@@ -1,7 +1,7 @@
 <div class="{{ __SELF__.classNames(
-    'form-field',
-    'form-field--name-' ~ (field.name | slug),
-    'form-field--type-' ~ (field.type | default(field._field_type)),
+    'form-group',
+    'form-group--name-' ~ (field.name | slug),
+    'form-group--type-' ~ (field.type | default(field._field_type)),
 )}}"
 >
     {% partial __SELF__ ~ '::resolver' %}
