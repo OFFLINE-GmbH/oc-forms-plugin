@@ -37,6 +37,11 @@ class RenderForm extends ComponentBase
     public string $cssClassPrefix = '';
 
     /**
+     * Label for the Responsiv.Uploader upload button.
+     */
+    public string $fileuploadPlaceholderText = '';
+
+    /**
      * Details of this component.
      */
     public function componentDetails()
@@ -82,6 +87,11 @@ class RenderForm extends ComponentBase
                 'type' => 'checkbox',
                 'default' => false,
             ],
+            'fileuploadPlaceholderText' => [
+                'title' => 'offline.forms::lang.components.render_form.fileupload_placeholder_text',
+                'type' => 'string',
+                'default' => '',
+            ],
         ];
     }
 
@@ -92,6 +102,7 @@ class RenderForm extends ComponentBase
     {
         $this->useHoneypot = $this->property('useHoneypot', true);
         $this->cssClassPrefix = $this->property('cssPrefix', '');
+        $this->fileuploadPlaceholderText = $this->property('fileuploadPlaceholderText');
 
         if ($this->property('includeJQuery', false)) {
             $this->addJs('/modules/system/assets/js/vendor/jquery.min.js');
@@ -205,6 +216,7 @@ class RenderForm extends ComponentBase
                     'maxSize' => array_get($field, 'max_size'),
                     'form' => $this->form,
                     'field' => $field['name'],
+                    'placeholderText' => $this->fileuploadPlaceholderText,
                 ],
             );
 

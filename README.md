@@ -62,6 +62,8 @@ composer require responsiv/uploader-plugin
 
 After installing the plugin, you can add file upload fields to your form in the backend.
 
+You can use the `fileuploadPlaceholderText` property to define a custom placeholder text for the upload button.
+
 **Important**: Responsiv.Uploader depends on jQuery. This means you need to include jQuery on your page.
 Set the `includeJQuery` property to `true` if you want the component to include jQuery automatically.
 
