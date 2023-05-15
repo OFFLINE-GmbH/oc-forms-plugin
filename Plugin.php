@@ -71,6 +71,7 @@ class Plugin extends PluginBase
                     $field['name'] => [
                         'label' => $field['label'] ?? $field['name'],
                         'span' => 'auto',
+                        'disabled' => $field['disabled'] ?? false,
                         'tab' => 'offline.forms::lang.fields',
                         ...$args,
                     ],
