@@ -7,6 +7,7 @@ use October\Rain\Argon\Argon;
 use October\Rain\Exception\ValidationException;
 use October\Rain\Support\Facades\Event;
 use October\Rain\Support\Facades\Str;
+use OFFLINE\Forms\Classes\Contexts;
 use OFFLINE\Forms\Classes\Events;
 use OFFLINE\Forms\Models\Form;
 use OFFLINE\Forms\Models\Submission;
@@ -273,7 +274,9 @@ class RenderForm extends ComponentBase
             return null;
         }
 
-        Event::fire(Events::FORM_EXTEND, [&$form, $this]);
+        Event::fire(Events::FORM_EXTEND, [&$form, Contexts::COMPONENT, $this]);
+
+        Event::fire(Events::FORM_BEFORE_RENDER, [&$form, $this]);
 
         $form->fields = $this->processFormFields($form->fields);
 

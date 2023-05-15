@@ -5,6 +5,8 @@ namespace OFFLINE\Forms;
 use Backend\Classes\NavigationManager;
 use Backend\Facades\Backend;
 use Illuminate\Support\Facades\Event;
+use OFFLINE\Forms\Classes\Contexts;
+use OFFLINE\Forms\Classes\Events;
 use OFFLINE\Forms\Models\Form;
 use OFFLINE\Forms\Models\Submission;
 use System\Classes\PluginBase;
@@ -42,6 +44,9 @@ class Plugin extends PluginBase
             if (!$widget->model instanceof Submission) {
                 return;
             }
+
+            // Allow other plugins to modify the fields.
+            Event::fire(Events::FORM_EXTEND, [$widget->model->form, Contexts::FIELDS, $widget]);
 
             collect($widget->model->form->fields)->each(function (array $field) use ($widget) {
                 $args = [];
@@ -84,6 +89,9 @@ class Plugin extends PluginBase
             if (!$form) {
                 return;
             }
+
+            // Allow other plugins to modify the fields.
+            Event::fire(Events::FORM_EXTEND, [$form, Contexts::COLUMNS, $widget]);
 
             collect($form->fields)->each(function (array $field) use ($widget) {
                 $args = [];

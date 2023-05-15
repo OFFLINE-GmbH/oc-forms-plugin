@@ -6,7 +6,6 @@ use Closure;
 use Model;
 use October\Rain\Database\Relations\HasMany;
 use October\Rain\Database\Scopes\MultisiteScope;
-use PhpParser\Node\Expr\AssignOp\Mul;
 use ValidationException;
 
 /**
@@ -37,8 +36,6 @@ class Form extends Model
 
     public $propagatable = ['slug', 'is_enabled', 'is_archived', 'recipients', 'send_cc', 'spam_protection_enabled', 'spam_limit_ip_15min', 'spam_limit_global_1h'];
 
-    protected $propagatableSync = true;
-
     public $rules = [
         'name' => 'required',
         'success_message' => 'required',
@@ -64,6 +61,8 @@ class Form extends Model
         'spam_limit_ip_15min' => 'integer',
         'spam_limit_global_1h' => 'integer',
     ];
+
+    protected $propagatableSync = true;
 
     public function beforeValidate()
     {
@@ -176,6 +175,69 @@ class Form extends Model
     }
 
     /**
+     * Apply a callback to each field.
+     */
+    public function mapFields(Closure $callback): void
+    {
+        $fields = $this->fields;
+
+        foreach ($fields as &$field) {
+            $field = $callback($field);
+        }
+
+        unset($field);
+
+        $this->fields = $fields;
+    }
+
+    /**
+     * This helper method transfers all field names to the placeholder attribute
+     * for fields that have no placeholder set.
+     *
+     * This is useful for "floating label" forms where a placeholder is required.
+     *
+     * You can provide an optional mutation function that will be called for each field.
+     */
+    public function applyPlaceholderToFields(?Closure $mutationFn = null): void
+    {
+        $this->mapFields(function (array $field) use ($mutationFn) {
+            if (!array_get($field, 'placeholder')) {
+                $field['placeholder'] = $field['label'] ?? '';
+
+                if ($mutationFn) {
+                    $field = $mutationFn($field);
+                }
+            }
+
+            return $field;
+        });
+    }
+
+    /**
+     * Helper method to prepend a field to this form.
+     */
+    public function prependField(array $field): void
+    {
+        $fields = $this->fields;
+
+        array_unshift($fields, $field);
+
+        $this->fields = $fields;
+    }
+
+    /**
+     * Helper method to append a field to this form.
+     */
+    public function appendField(array $field): void
+    {
+        $fields = $this->fields;
+
+        $fields[] = $field;
+
+        $this->fields = $fields;
+    }
+
+    /**
      * Set the name of each field that has no name set.
      */
     protected function setFieldNames(): void
@@ -198,42 +260,5 @@ class Form extends Model
                 return $field;
             })
             ->toArray();
-    }
-
-    /**
-     * Apply a callback to each field.
-     */
-    public function mapFields(Closure $callback): void
-    {
-        $fields = $this->fields;
-
-        foreach($fields as &$field) {
-            $field = $callback($field);
-        }
-
-        unset($field);
-
-        $this->fields = $fields;
-    }
-
-    /**
-     * This helper method transfers all field names to the placeholder attribute
-     * for fields that have no placeholder set.
-     *
-     * This is useful for "floating label" forms where a placeholder is required.
-     *
-     * You can provide an optional mutation function that will be called for each field.
-     */
-    public function applyPlaceholderToFields(?Closure $mutationFn = null): void
-    {
-        $this->mapFields(function(array $field) use ($mutationFn) {
-            if (!array_get($field, 'placeholder')) {
-                $field['placeholder'] = $field['label'] ?? '';
-                if ($mutationFn) {
-                    $field = $mutationFn($field);
-                }
-            }
-            return $field;
-        });
     }
 }

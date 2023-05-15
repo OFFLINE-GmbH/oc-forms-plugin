@@ -140,6 +140,18 @@ form:
 
 ## Helper methods
 
+### `prependField` and `appendField`
+
+These two methods allow you to add fields to the form before or after the existing fields.
+
+```php
+$form->prependField([
+    'name' => 'some-field',
+    'label' => 'First field',
+    'type' => 'text',
+]);
+```
+
 ### `mapFields`
 
 Apply a transform to each field in the form. The transform will receive the field as its first argument.
@@ -177,11 +189,40 @@ $form->applyPlaceholderToFields(function(array $field) {
 
 ### `offline.forms::form.extend`
 
-Use this event to change the form before it is rendered.
+Use this event to apply changes to the form globally (frontend, backend, export).
 
 ```php
 Event::listen(
     \OFFLINE\Forms\Classes\Events::FORM_EXTEND,
+    function (\OFFLINE\Forms\Models\Form $form, string $context, $widget) {
+            if ($context === Contexts::FIELDS) {
+                info('$widget is a Backend Form widget');
+            } else if ($context === Contexts::COLUMNS) {
+                info('$widget is a Backend Lists widget');
+            } else if ($context === Contexts::COMPONENT) {
+                info('$widget is the RenderForm component');
+            }
+
+            // Add a field for a specific form.
+            if ($form->slug === 'my-form') {
+                $form->prependField([
+                    'name' => 'my-hidden-value',
+                    'label' => 'Something additional',
+                    'type' => 'hidden',
+                    'value' => 'Top secret'
+                ]);
+            }
+    }
+);
+```
+
+### `offline.forms::form.beforeRender`
+
+Use this event to change the form before it is rendered.
+
+```php
+Event::listen(
+    \OFFLINE\Forms\Classes\Events::FORM_BEFORE_RENDER,
     function (\OFFLINE\Forms\Models\Form $form, \OFFLINE\Forms\Components\RenderForm $component) {
         // Do anything with the form or $form->fields here.
         $form->applyPlaceholderToFields();

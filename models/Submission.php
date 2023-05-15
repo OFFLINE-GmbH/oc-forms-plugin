@@ -137,7 +137,7 @@ class Submission extends ExpandoModel
     public function setRelationsForForm(Form $form)
     {
         collect($form->fields)
-            ->filter(fn($field) => $field['_field_type'] === 'fileupload')
+            ->filter(fn ($field) => array_get($field, '_field_type') === 'fileupload')
             ->each(function ($field) {
                 $this->attachMany[$field['name']] = [
                     File::class,

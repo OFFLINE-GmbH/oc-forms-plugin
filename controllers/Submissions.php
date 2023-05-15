@@ -87,12 +87,12 @@ class Submissions extends Controller
         }
 
         $searchableColumns = collect($this->getWidget('list')?->getColumns() ?? [])
-            ->filter(fn($column) => $column->_searchable)
+            ->filter(fn ($column) => $column->_searchable)
             ->pluck('columnName');
 
         // Search in all searchable "data" values.
-        $query->where(fn($q) => $searchableColumns->each(
-            fn($column) => $q->orWhere("data->{$column}", 'like', "%${term}%")
+        $query->where(fn ($q) => $searchableColumns->each(
+            fn ($column) => $q->orWhere("data->{$column}", 'like', "%${term}%")
         ));
     }
 
