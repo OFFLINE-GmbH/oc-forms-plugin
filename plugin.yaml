@@ -16,6 +16,8 @@ navigation:
         label: 'offline.forms::lang.forms'
         url: offline/forms/forms
         icon: icon-inbox
+        permissions:
+            - 'offline.forms::can_see_forms'
         sideMenu:
             side-menu-forms:
                 label: 'offline.forms::lang.forms'
