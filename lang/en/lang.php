@@ -81,6 +81,8 @@ return [
     'dropdown' => 'Dropdown',
     'options' => 'Options',
     'number' => 'Number',
+    'date' => 'Date',
+    'time' => 'Time',
     'components' => [
         'render_form' => [
             'name' => 'Form',

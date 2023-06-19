@@ -43,6 +43,8 @@ tabs:
                                 text: 'offline.forms::lang.text_input'
                                 email: 'offline.forms::lang.email'
                                 number: 'offline.forms::lang.number'
+                                date: 'offline.forms::lang.date'
+                                time: 'offline.forms::lang.time'
                         placeholder:
                             label: 'offline.forms::lang.placeholder'
                             comment: 'offline.forms::lang.placeholder_comment'

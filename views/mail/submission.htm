@@ -17,9 +17,13 @@
                 ({{ file.size }})
             {% endfor %}
 
+        {% elseif field.type == 'date' %}
+
+            {{ submission[field.name] | date('d.m.Y') }}
+
         {% else %}
 
-            {{ submission.data[field.name] | nl2br }}
+            {{ submission[field.name] | nl2br }}
 
         {% endif %}
     </p>

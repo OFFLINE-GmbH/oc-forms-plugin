@@ -277,10 +277,17 @@ class RenderForm extends ComponentBase
         if ($this->methodExists('getBoxesBox')) {
             $boxesBox = $this->getBoxesBox();
 
-            $this->setProperty('id', $boxesBox->form);
+            if ($boxesBox->form) {
+                $this->setProperty('id', $boxesBox->form);
+            }
         }
 
-        $form = Form::find($this->property('id'));
+        $form = Form::query()
+            ->where(fn($q) => $q
+                ->where('id', $this->property('id'))
+                ->orWhere('slug', $this->property('id'))
+            )
+            ->first();
 
         if (!$form) {
             return null;

@@ -81,6 +81,8 @@ return [
     'dropdown' => 'Auswahlliste',
     'options' => 'Optionen',
     'number' => 'Zahl',
+    'date' => 'Datum',
+    'time' => 'Uhrzeit',
     'components' => [
         'render_form' => [
             'name' => 'Formular',

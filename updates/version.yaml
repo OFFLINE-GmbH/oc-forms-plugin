@@ -2,3 +2,5 @@ v1.0.1:
     - 'Initial version of the plugin.'
     - create_offline_forms_forms.php
     - create_offline_forms_submissions.php
+v1.0.16:
+    - Added support for date and time fields.

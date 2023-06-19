@@ -66,6 +66,8 @@ class Submission extends ExpandoModel
     {
         if ($this->form) {
             $this->setRelationsForForm($this->form);
+
+            $this->addDates();
         }
     }
 
@@ -123,6 +125,9 @@ class Submission extends ExpandoModel
     {
         Event::fire(Events::FORM_EXTEND, [&$this->form, Contexts::MAIL, null]);
 
+        // Transfer the data attributes.
+        $this->expandoAfterFetch();
+
         Mail::send(
             'offline.forms::mail.submission',
             [
@@ -153,5 +158,15 @@ class Submission extends ExpandoModel
                     'public' => false,
                 ];
             });
+    }
+
+    /**
+     * Add all date fields to the $dates array.
+     */
+    private function addDates()
+    {
+        collect($this->form->fields)
+            ->filter(fn($field) => array_get($field, 'type') === 'date' && array_get($field, 'name'))
+            ->each(fn($field) => $this->dates[] = $field['name']);
     }
 }

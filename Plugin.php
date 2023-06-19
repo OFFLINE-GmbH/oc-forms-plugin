@@ -63,8 +63,25 @@ class Plugin extends PluginBase
                         $args['mode'] = array_intersect(explode(',', $allowedExtensions), ['jpg', 'jpeg', 'png', 'gif']) ? 'image' : 'file';
                         $args['fileTypes'] = $allowedExtensions;
                         break;
+                    case 'textarea':
+                        $args['type'] = 'textarea';
+                        $args['size'] = 'small';
+                        break;
                     default:
-                        $args['type'] = 'text';
+                        $type = array_get($field, 'type', 'text');
+                        switch ($type) {
+                            case 'date':
+                                $args['type'] = 'datepicker';
+                                $args['mode'] = 'date';
+                                break;
+                            case 'time':
+                                $args['type'] = 'datepicker';
+                                $args['mode'] = 'time';
+                                break;
+                            default:
+                                $args['type'] = $type ?? 'text';
+                                break;
+                        }
                         break;
                 }
                 $widget->addTabFields([
@@ -106,7 +123,12 @@ class Plugin extends PluginBase
                         $args['clickable'] = false;
                         break;
                     default:
-                        $args['type'] = 'text';
+                        $type = array_get($field, 'type', 'text');
+                        $args['type'] = match ($type) {
+                            'date' => 'date',
+                            'time' => 'time',
+                            default => 'text',
+                        };
                         break;
                 }
 
