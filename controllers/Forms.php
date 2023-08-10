@@ -29,6 +29,19 @@ class Forms extends Controller
         BackendMenu::setContext('OFFLINE.Forms', 'offline-forms-main-menu', 'side-menu-forms');
     }
 
+    public function onDuplicate()
+    {
+        $forms = \OFFLINE\Forms\Models\Form::whereIn('id', post('checked'))->get();
+        foreach ($forms as $form) {
+            $newForm = $form->replicate();
+            $newForm->name .= ' - Copy';
+            $newForm->save();
+        }
+
+        \Flash::success(\Lang::get('offline.forms::lang.duplicate_success'));
+        return $this->listRefresh();
+    }
+
     public function formExtendFieldsBefore(Form $form)
     {
         // Remove the file upload fields if Responsiv.Uploader is not installed.

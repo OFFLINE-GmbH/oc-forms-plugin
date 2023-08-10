@@ -95,4 +95,5 @@ return [
             'include_framework' => 'Include AJAX Framework',
         ],
     ],
+    'duplicate_success' => 'Form has been duplicated',
 ];
