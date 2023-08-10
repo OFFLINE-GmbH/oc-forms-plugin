@@ -34,7 +34,7 @@ class Forms extends Controller
         $forms = \OFFLINE\Forms\Models\Form::whereIn('id', post('checked'))->get();
         foreach ($forms as $form) {
             $newForm = $form->replicate();
-            $newForm->name .= ' - Copy';
+            $newForm->name .= ' - ' . __('Copy');
             $newForm->save();
         }
 
