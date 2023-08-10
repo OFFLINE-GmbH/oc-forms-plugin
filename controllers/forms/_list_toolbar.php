@@ -13,4 +13,19 @@
         data-stripe-load-indicator>
         <?= e(trans('backend::lang.list.delete_selected')); ?>
     </button>
+
+    <button
+        class="btn btn-default oc-icon-copy"
+        disabled="disabled"
+        onclick="$(this).data('request-data', {
+              checked: $('.control-list').listWidget('getChecked')
+          })"
+        data-request="onDuplicate"
+        data-trigger-action="enable"
+        data-trigger=".control-list input[type=checkbox]"
+        data-trigger-condition="checked"
+        data-request-success="$(this).prop('disabled', true)"
+        data-stripe-load-indicator>
+        <?= __("Duplicate") ?>
+    </button>
 </div>
