@@ -95,4 +95,5 @@ return [
             'include_framework' => 'AJAX Framework automatisch einbinden',
         ],
     ],
+    'duplicate_success' => 'Formular erfolgreich dupliziert',
 ];
