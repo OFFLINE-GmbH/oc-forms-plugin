@@ -6,3 +6,6 @@ v1.0.16:
     - Added support for date and time fields.
 v1.0.17:
     - Added duplication action.
+v1.0.18:
+    - 'Added script field that will be executed after submitting the form.'
+    - add_success_script_field_to_offline_forms.php
