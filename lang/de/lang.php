@@ -98,4 +98,10 @@ return [
         ],
     ],
     'duplicate_success' => 'Formular erfolgreich dupliziert',
+    'validation-section' => 'Validierung',
+    'custom_validation_rules' => 'Benutzerdefinierte Validierungsregeln',
+    'custom_validation_rules_comment' => 'Hier können benutzerdefinierte Validierungsregeln für dieses Feld definiert werden. Format siehe: https://docs.octobercms.com/3.x/extend/services/validation',
+    'add_custom_validation_rule' => 'Regel hinzufügen',
+    'custom_validation_rule' => 'Regel',
+    'custom_validation_message' => 'Fehlermeldung',
 ];

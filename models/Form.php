@@ -121,9 +121,41 @@ class Form extends Model
                     }
                 }
 
+                if (array_get($field, 'custom_validation_rules')) {
+                    collect(array_get($field, 'custom_validation_rules'))
+                        ->pluck('rule')
+                        ->each(function ($rule) use (&$rules) {
+                            $rules[] = $rule;
+                        });
+                }
+
                 return count($rules) > 0
                     ? [$field['name'] => implode('|', $rules)]
                     : [];
+            })
+            ->filter()
+            ->toArray();
+    }
+
+    /**
+     * Return validation messages for this form.
+     */
+
+    public function getValidationMessages(): array
+    {
+        return collect($this->fields)
+            ->mapWithKeys(function (array $field) {
+                $messages = [];
+
+                if (array_get($field, 'custom_validation_rules')) {
+                    collect(array_get($field, 'custom_validation_rules'))
+                        ->each(function (array $rule) use (&$messages, $field) {
+
+                            $messages[$field['name'].'.'.strtok($rule['rule'], ':')] = $rule['message'];
+                        });
+                }
+
+                return $messages;
             })
             ->filter()
             ->toArray();

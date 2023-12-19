@@ -31,6 +31,8 @@ class Submission extends ExpandoModel
         'form_id' => 'required|exists:offline_forms_forms,id',
     ];
 
+    public array $customMessages = [];
+
     public array $attributeNames = [];
 
     public $belongsTo = [
@@ -107,6 +109,7 @@ class Submission extends ExpandoModel
     public function beforeValidate()
     {
         $this->rules = array_merge($this->rules, $this->form->getValidationRules());
+        $this->customMessages = $this->form->getValidationMessages();
         $this->attributeNames = array_merge($this->attributeNames, $this->form->getFieldNames());
     }
 
