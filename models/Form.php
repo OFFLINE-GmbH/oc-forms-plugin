@@ -245,7 +245,6 @@ class Form extends Model
         return [
             'slug' => $this->slug,
             'fields' => collect($this->fields)->keyBy('label')->toArray(),
-            'success_message' => $this->success_message,
         ];
     }
 
