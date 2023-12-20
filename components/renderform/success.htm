@@ -5,7 +5,7 @@
 {% if __SELF__.form.success_script %}
     <script>
         window.ocForms = window.ocForms || [];
-        window.ocForms.formData = {{ __SELF__.form | json_encode | raw }};
+        window.ocForms.formData = {{ __SELF__.form.getSafeData | json_encode | raw }};
     </script>
     <script>
         {{ __SELF__.form.success_script | raw }}

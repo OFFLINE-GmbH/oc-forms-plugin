@@ -238,6 +238,18 @@ class Form extends Model
     }
 
     /**
+     * Safe data returns a safe-for-publication version of the form data.
+     */
+    public function getSafeData(): array
+    {
+        return [
+            'slug' => $this->slug,
+            'fields' => collect($this->fields)->keyBy('label')->toArray(),
+            'success_message' => $this->success_message,
+        ];
+    }
+
+    /**
      * Set the name of each field that has no name set.
      */
     protected function setFieldNames(): void
