@@ -34,7 +34,7 @@ class Form extends Model
 
     public $table = 'offline_forms_forms';
 
-    public $propagatable = ['slug', 'is_enabled', 'is_archived', 'recipients', 'send_cc', 'spam_protection_enabled', 'spam_limit_ip_15min', 'spam_limit_global_1h'];
+    public $propagatable = ['slug', 'is_enabled', 'is_archived', 'recipients', 'send_cc', 'spam_protection_enabled', 'spam_limit_ip_15min', 'spam_limit_global_1h', 'success_script'];
 
     public $rules = [
         'name' => 'required',
@@ -267,6 +267,17 @@ class Form extends Model
         $fields[] = $field;
 
         $this->fields = $fields;
+    }
+
+    /**
+     * Safe data returns a safe-for-publication version of the form data.
+     */
+    public function getSafeData(): array
+    {
+        return [
+            'slug' => $this->slug,
+            'fields' => collect($this->fields)->keyBy('name')->toArray(),
+        ];
     }
 
     /**

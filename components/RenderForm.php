@@ -147,6 +147,9 @@ class RenderForm extends ComponentBase
         );
 
         $submission->save(null, post('_session_key'));
+
+        // Make the submission available in the success partial.
+        $this->page['submission'] = $submission;
     }
 
     /**
