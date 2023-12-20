@@ -11,3 +11,5 @@ v1.0.18:
     - add_success_script_field_to_offline_forms.php
 v1.0.19:
     - 'Minor tweaks to new success javascript feature'
+v1.0.20:
+    - 'Added submission data to success partial'
