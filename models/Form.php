@@ -34,7 +34,17 @@ class Form extends Model
 
     public $table = 'offline_forms_forms';
 
-    public $propagatable = ['slug', 'is_enabled', 'is_archived', 'recipients', 'send_cc', 'spam_protection_enabled', 'spam_limit_ip_15min', 'spam_limit_global_1h', 'success_script'];
+    public $propagatable = [
+        'slug',
+        'is_enabled',
+        'is_archived',
+        'recipients',
+        'send_cc',
+        'spam_protection_enabled',
+        'spam_limit_ip_15min',
+        'spam_limit_global_1h',
+        'success_script',
+    ];
 
     public $rules = [
         'name' => 'required',
@@ -121,12 +131,11 @@ class Form extends Model
                     }
                 }
 
-                if (array_get($field, 'custom_validation_rules')) {
-                    collect(array_get($field, 'custom_validation_rules'))
-                        ->pluck('rule')
-                        ->each(function ($rule) use (&$rules) {
-                            $rules[] = $rule;
-                        });
+                if ($customRules = array_get($field, 'custom_validation_rules')) {
+                    $rules = collect($rules)
+                        ->merge(collect($customRules)->pluck('rule'))
+                        ->unique()
+                        ->toArray();
                 }
 
                 return count($rules) > 0
@@ -147,11 +156,11 @@ class Form extends Model
             ->mapWithKeys(function (array $field) {
                 $messages = [];
 
-                if (array_get($field, 'custom_validation_rules')) {
-                    collect(array_get($field, 'custom_validation_rules'))
+                if ($customRules = array_get($field, 'custom_validation_rules')) {
+                    collect($customRules)
                         ->each(function (array $rule) use (&$messages, $field) {
-
-                            $messages[$field['name'].'.'.strtok($rule['rule'], ':')] = $rule['message'];
+                            $key = sprintf("%s.%s", $field['name'], strtok($rule['rule'], ':'));
+                            $messages[$key] = $rule['message'];
                         });
                 }
 
