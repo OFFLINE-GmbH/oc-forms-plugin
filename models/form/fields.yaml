@@ -60,7 +60,7 @@ tabs:
                         _section:
                             type: section
                             displayMode: simple
-                            label: 'offline.forms::lang.validation-section'
+                            label: 'offline.forms::lang.validation_section'
                             cssClass: 'divider'
                         is_required:
                             type: checkbox

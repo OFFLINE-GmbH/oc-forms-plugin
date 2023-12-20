@@ -98,7 +98,7 @@ return [
         ],
     ],
     'duplicate_success' => 'Form has been duplicated',
-    'validation-section' => 'Validation',
+    'validation_section' => 'Validation',
     'custom_validation_rules' => 'Custom validation rules',
     'custom_validation_rules_comment' => 'Here you can define custom validation rules for this field. Format: https://docs.octobercms.com/3.x/extend/services/validation',
     'add_custom_validation_rule' => 'Add rule',
