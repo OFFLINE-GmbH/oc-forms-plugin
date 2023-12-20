@@ -64,6 +64,8 @@ return [
     'rows' => 'Anzahl Zeilen',
     'success_message' => 'Erfolgsmeldung',
     'success_message_comment' => 'Wird dem Absender nach dem Absenden des Formulars angezeigt',
+    'success_script' => 'JavaScript nach dem Absenden',
+    'success_script_comment' => 'Wird nach dem Absenden des Formulars ausgeführt. Formulardaten sind in der Variable `window.ocForms.formData` verfügbar.',
     'validation_email_field_required' => 'Um eine Kopie an den Absender senden zu können, muss ein Feld mit vom Typ E-Mail im Formular vorhanden sein',
     'submit' => 'Absenden',
     'submit_button_label' => 'Text für Absende-Aktion',

@@ -1,3 +1,13 @@
 <div class="{{ __SELF__.classNames('form-message form-message--success') }}">
     {{ __SELF__.form.success_message }}
 </div>
+
+{% if __SELF__.form.success_script %}
+    <script>
+        window.ocForms = window.ocForms || [];
+        window.ocForms.formData = {{ __SELF__.form.getSafeData | json_encode | raw }};
+    </script>
+    <script>
+        {{ __SELF__.form.success_script | raw }}
+    </script>
+{% endif %}
