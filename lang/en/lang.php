@@ -65,7 +65,7 @@ return [
     'success_message' => 'Success message',
     'success_message_comment' => 'Displayed after the form has been sent successfully',
     'success_script' => 'Success script',
-    'success_script_comment' => 'Will be executed after the form has been sent successfully. Use the variable `window.ocForms.formData` to access the form data.',
+    'success_script_comment' => 'Will be executed after the form has been sent successfully. Use the variables `window.ocForms.data` and `window.ocForms.submission` to access the form data.',
     'validation_email_field_required' => 'To send a copy to the sender, the form must have at least one e-mail fieldTo send a copy to the sender, the form must have at least one e-mail field.',
     'submit' => 'Submit',
     'submit_button_label' => 'Text for submit button',

@@ -13,3 +13,5 @@ v1.0.19:
     - 'Minor tweaks to new success javascript feature'
 v1.0.20:
     - 'Added submission data to success partial'
+v1.0.21:
+    - 'Fixed comment'
