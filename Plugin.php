@@ -207,4 +207,11 @@ class Plugin extends PluginBase
     public function registerSettings()
     {
     }
+
+    public function registerMailTemplates()
+    {
+        return [
+            'offline.forms::mail.submission'
+        ];
+    }
 }

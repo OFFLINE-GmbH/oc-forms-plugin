@@ -17,3 +17,5 @@ v1.0.21:
     - 'Fixed comment'
 v1.0.22:
     - 'Added support for custom validation rules'
+v1.0.23:
+    - 'Fixed October 3.6 compatibility issue'
