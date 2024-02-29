@@ -34,6 +34,7 @@ columns:
         type: partial
         searchable: true
         sortable: false
+        path: recipients
     send_cc:
         label: 'offline.forms::lang.send_cc'
         type: text
