@@ -23,3 +23,5 @@ v1.0.24:
     - 'Implemented Checkbox Lists'
 v1.0.25:
     - 'Bugfix'
+v1.0.26:
+    - 'Fixed default mail view for checkbox lists'

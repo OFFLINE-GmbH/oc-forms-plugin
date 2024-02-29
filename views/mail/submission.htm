@@ -17,6 +17,21 @@
                 ({{ file.size }})
             {% endfor %}
 
+        {% elseif field._field_type == "checkboxlist" %}
+
+            {% set value = submission[field.name] %}
+
+            {% if value | length > 0 %}
+                {% for entry in value %}
+                    - {{ entry.value }}
+                    {% if not loop.last %}
+                        <br>
+                    {% endif %}
+                {% endfor %}
+            {% else %}
+                -
+            {% endif %}
+
         {% elseif field.type == 'date' %}
 
             {{ submission[field.name] | date('d.m.Y') }}
