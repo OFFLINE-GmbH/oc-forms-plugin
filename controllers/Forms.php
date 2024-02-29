@@ -5,6 +5,8 @@ namespace OFFLINE\Forms\Controllers;
 use Backend\Classes\Controller;
 use Backend\Widgets\Form;
 use BackendMenu;
+use Flash;
+use Lang;
 
 class Forms extends Controller
 {
@@ -32,13 +34,15 @@ class Forms extends Controller
     public function onDuplicate()
     {
         $forms = \OFFLINE\Forms\Models\Form::whereIn('id', post('checked'))->get();
+
         foreach ($forms as $form) {
             $newForm = $form->replicate();
             $newForm->name .= ' - ' . __('Copy');
             $newForm->save();
         }
 
-        \Flash::success(\Lang::get('offline.forms::lang.duplicate_success'));
+        Flash::success(Lang::get('offline.forms::lang.duplicate_success'));
+
         return $this->listRefresh();
     }
 

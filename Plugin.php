@@ -67,8 +67,22 @@ class Plugin extends PluginBase
                         $args['type'] = 'textarea';
                         $args['size'] = 'small';
                         break;
+                    case 'checkboxlist':
+                        $args['type'] = 'repeater';
+                        $args['showDuplicate'] = false;
+                        $args['showReorder'] = false;
+                        $args['itemsExpanded'] = false;
+                        $args['form'] = [
+                            'fields' => [
+                                'value' => [
+                                    'span' => 'full',
+                                ],
+                            ],
+                        ];
+                        break;
                     default:
                         $type = array_get($field, 'type', 'text');
+
                         switch ($type) {
                             case 'date':
                                 $args['type'] = 'datepicker';
@@ -122,12 +136,16 @@ class Plugin extends PluginBase
                         $args['path'] = '$/offline/forms/controllers/submissions/_fileupload_column.php';
                         $args['clickable'] = false;
                         break;
+                    case 'checkboxlist':
+                        $args['type'] = 'partial';
+                        $args['path'] = '$/offline/forms/controllers/submissions/_checkboxlist_column.php';
+                        break;
                     default:
                         $type = array_get($field, 'type', 'text');
                         $args['type'] = match ($type) {
                             'date' => 'date',
                             'time' => 'time',
-                            default => 'text',
+                            'default' => 'text',
                         };
                         break;
                 }
@@ -183,11 +201,19 @@ class Plugin extends PluginBase
                 return;
             }
 
-            if (array_get($column->config, 'path') !== '$/offline/forms/controllers/submissions/_fileupload_column.php') {
-                return;
+            // Transform the upload to a URL.
+            if (array_get($column->config, 'path') === '$/offline/forms/controllers/submissions/_fileupload_column.php') {
+                $value = $value->implode(fn (File $file) => "{$file->getPath()} ({$file->getFilename()})", ',');
             }
 
-            $value = $value->implode(fn (File $file) => "{$file->getPath()} ({$file->getFilename()})", ',');
+            // Transform checkbox list array values to a string.
+            if (array_get($column->config, 'path') === '$/offline/forms/controllers/submissions/_checkboxlist_column.php') {
+                if (is_array($value)) {
+                    $value = collect($value)->pluck('value')->implode(', ');
+                } else {
+                    $value = '';
+                }
+            }
         });
     }
 
@@ -211,7 +237,7 @@ class Plugin extends PluginBase
     public function registerMailTemplates()
     {
         return [
-            'offline.forms::mail.submission'
+            'offline.forms::mail.submission',
         ];
     }
 }

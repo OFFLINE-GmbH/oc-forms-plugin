@@ -1,0 +1,16 @@
+{% partial __SELF__ ~ '::label' field=field %}
+
+<div class="{{ __SELF__.classNames('form-checkboxlist-options') }}">
+    {% for option in field.options %}
+        <label for="{{ field.id }}_{{ loop.index }}" class="{{ __SELF__.classNames('form-control--checkbox', 'form-control--checkboxlist-option') }}">
+            <input
+                type="checkbox"
+                id="{{ field.id }}_{{ loop.index }}"
+                name="{{ field.id }}[{{ loop.index }}][value]"
+                value="{{ option.value | default(option.label) }}"
+                {% if option.checked %}checked="checked"{% endif %}
+            >
+            {{ option.label }}
+        </label>
+    {% endfor %}
+</div>

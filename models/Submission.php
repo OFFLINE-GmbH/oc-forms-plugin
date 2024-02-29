@@ -169,7 +169,7 @@ class Submission extends ExpandoModel
     private function addDates()
     {
         collect($this->form->fields)
-            ->filter(fn($field) => array_get($field, 'type') === 'date' && array_get($field, 'name'))
-            ->each(fn($field) => $this->dates[] = $field['name']);
+            ->filter(fn ($field) => array_get($field, 'type') === 'date' && array_get($field, 'name'))
+            ->each(fn ($field) => $this->dates[] = $field['name']);
     }
 }

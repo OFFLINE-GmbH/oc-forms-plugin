@@ -121,6 +121,10 @@ class Form extends Model
                     $rules[] = 'required';
                 }
 
+                if (array_get($field, '_field_type') === 'checkboxlist') {
+                    $rules[] = 'array|min:1';
+                }
+
                 if (array_get($field, 'type') === 'email') {
                     $rules[] = 'email';
                 }
@@ -149,7 +153,6 @@ class Form extends Model
     /**
      * Return validation messages for this form.
      */
-
     public function getValidationMessages(): array
     {
         return collect($this->fields)
@@ -159,7 +162,7 @@ class Form extends Model
                 if ($customRules = array_get($field, 'custom_validation_rules')) {
                     collect($customRules)
                         ->each(function (array $rule) use (&$messages, $field) {
-                            $key = sprintf("%s.%s", $field['name'], strtok($rule['rule'], ':'));
+                            $key = sprintf('%s.%s', $field['name'], strtok($rule['rule'], ':'));
                             $messages[$key] = $rule['message'];
                         });
                 }

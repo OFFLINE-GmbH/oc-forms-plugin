@@ -26,6 +26,6 @@
         data-trigger-condition="checked"
         data-request-success="$(this).prop('disabled', true)"
         data-stripe-load-indicator>
-        <?= __("Duplicate") ?>
+        <?= __('Duplicate'); ?>
     </button>
 </div>

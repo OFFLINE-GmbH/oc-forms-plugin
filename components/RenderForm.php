@@ -142,9 +142,16 @@ class RenderForm extends ComponentBase
 
         $submission = $this->getSubmissionModel();
 
-        $submission->forceFill(
-            array_except(request($this->alias), $submission->getGuarded())
-        );
+        $data = array_except(request($this->alias), $submission->getGuarded());
+
+        // Cleanup Array values.
+        foreach ($data as $key => $value) {
+            if (is_array($value)) {
+                $data[$key] = array_values($value);
+            }
+        }
+
+        $submission->forceFill($data);
 
         $submission->save(null, post('_session_key'));
 
@@ -286,9 +293,10 @@ class RenderForm extends ComponentBase
         }
 
         $form = Form::query()
-            ->where(fn($q) => $q
-                ->where('id', $this->property('id'))
-                ->orWhere('slug', $this->property('id'))
+            ->where(
+                fn ($q) => $q
+                    ->where('id', $this->property('id'))
+                    ->orWhere('slug', $this->property('id'))
             )
             ->first();
 
