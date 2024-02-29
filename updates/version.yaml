@@ -21,3 +21,5 @@ v1.0.23:
     - 'Fixed October 3.6 compatibility issue'
 v1.0.24:
     - 'Implemented Checkbox Lists'
+v1.0.25:
+    - 'Bugfix'

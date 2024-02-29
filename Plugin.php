@@ -145,7 +145,7 @@ class Plugin extends PluginBase
                         $args['type'] = match ($type) {
                             'date' => 'date',
                             'time' => 'time',
-                            'default' => 'text',
+                            default => 'text',
                         };
                         break;
                 }
