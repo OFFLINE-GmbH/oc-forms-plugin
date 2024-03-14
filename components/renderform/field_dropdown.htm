@@ -7,7 +7,11 @@
 >
     <option style="display: none;">-- {{ field.label }}</option>
     {% for option in field.options %}
-        <option value="{{ option.value | default(option.label) }}">
+        {% set value = option.value | default(option.label) %}
+        <option
+            {{ value == field.value ? 'selected' }}
+            value="{{ option.value | default(option.label) }}"
+        >
             {{ option.label }}
         </option>
     {% endfor %}
