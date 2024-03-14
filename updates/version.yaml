@@ -25,3 +25,5 @@ v1.0.25:
     - 'Bugfix'
 v1.0.27:
     - 'Allow select options to be pre-selected'
+v1.0.28:
+    - 'Added support for empty options'
