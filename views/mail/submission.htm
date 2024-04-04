@@ -23,7 +23,17 @@
 
         {% else %}
 
-            {{ submission[field.name] | nl2br }}
+            {% if submission[field.name] is iterable %}
+
+                {% for value in submission[field.name] %}
+                    - {{ value }}<br>
+                {% endfor %}
+
+            {% else %}
+
+                {{ submission[field.name] | nl2br }}
+
+            {% endif %}
 
         {% endif %}
     </p>
