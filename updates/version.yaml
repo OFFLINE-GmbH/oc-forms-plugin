@@ -29,3 +29,5 @@ v1.0.28:
     - 'Added support for empty options'
 v1.0.29:
     - 'Render array values in Mail view correctly'
+v1.0.30:
+    - 'Do not render optinal fields in mail body'

@@ -1,40 +1,42 @@
 # {{ subject }}
 
 {% for field in submission.form.getRelevantFields() %}
-    <p>
-        <strong>{{ field.label }}</strong><br>
+    {% if submission[field.name] %}
+        <p>
+            <strong>{{ field.label }}</strong><br>
 
-        {% if field._field_type == "fileupload" %}
+            {% if field._field_type == "fileupload" %}
 
-            {% for file in submission[field.name] %}
-                {% if not isCC %}
-                    <a href="{{ file.getPath() }}">
+                {% for file in submission[field.name] %}
+                    {% if not isCC %}
+                        <a href="{{ file.getPath() }}">
+                            {{ file.filename }}
+                        </a>
+                    {% else %}
                         {{ file.filename }}
-                    </a>
-                {% else %}
-                    {{ file.filename }}
-                {% endif %}
-                ({{ file.size }})
-            {% endfor %}
-
-        {% elseif field.type == 'date' %}
-
-            {{ submission[field.name] | date('d.m.Y') }}
-
-        {% else %}
-
-            {% if submission[field.name] is iterable %}
-
-                {% for value in submission[field.name] %}
-                    - {{ value }}<br>
+                    {% endif %}
+                    ({{ file.size }})
                 {% endfor %}
+
+            {% elseif field.type == 'date' %}
+
+                {{ submission[field.name] | date('d.m.Y') }}
 
             {% else %}
 
-                {{ submission[field.name] | nl2br }}
+                {% if submission[field.name] is iterable %}
+
+                    {% for value in submission[field.name] %}
+                        - {{ value }}<br>
+                    {% endfor %}
+
+                {% else %}
+
+                    {{ submission[field.name] | nl2br }}
+
+                {% endif %}
 
             {% endif %}
-
-        {% endif %}
-    </p>
+        </p>
+    {% endif %}
 {% endfor %}
