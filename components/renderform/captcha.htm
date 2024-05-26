@@ -1,0 +1,8 @@
+<div class="{{ __SELF__.classNames( 'form-group', 'form-group--captcha') }}">
+
+    <div class="{{ __SELF__.classNames('form-captcha') }} {{ __SELF__.alias ~ '-captcha-container' }}">
+        {% partial __SELF__ ~ '::captcha_image' %}
+    </div>
+
+    {% partial __SELF__ ~ '::validation' field={name: 'captcha'} %}
+</div>

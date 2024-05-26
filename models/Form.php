@@ -20,6 +20,7 @@ use ValidationException;
  * @property boolean $spam_protection_enabled
  * @property integer $spam_limit_ip_15min
  * @property integer $spam_limit_global_1h
+ * @property bool $spam_use_captcha
  * @property string $mail_subject
  *
  * @property \October\Rain\Database\Collection<Submission> $submissions

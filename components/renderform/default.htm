@@ -1,3 +1,4 @@
+{% set id = __SELF__.alias ~ '-form' %}
 {% set attributes = {
     'data-request': __SELF__ ~ '::onSubmit',
     'data-request-validate': true,
@@ -5,23 +6,36 @@
         '" ~ __SELF__.alias ~ "::success': '#" ~ __SELF__.alias ~ "-form'
     }",
     'novalidate': true,
-    'class': __SELF__.classNames(__SELF__.property('formClasses'))
+    'class': __SELF__.classNames(__SELF__.property('formClasses')),
+    'id': id
 } %}
 
 <div id="{{ __SELF__.alias }}-form">
     {% if __SELF__.form.is_available %}
         {{ form_open(attributes) }}
 
-            {% partial __SELF__ ~ '::fields' %}
+        {% partial __SELF__ ~ '::fields' %}
 
-            {% partial __SELF__ ~ '::actions' %}
+        {% partial __SELF__ ~ '::actions' %}
 
-            {% if __SELF__.useHoneypot %}
-                {% partial __SELF__ ~ '::honeypot' %}
-            {% endif %}
+        {% if __SELF__.useHoneypot %}
+            {% partial __SELF__ ~ '::honeypot' %}
+        {% endif %}
 
         {{ form_close() }}
     {% else %}
         {% partial __SELF__ ~ '::disabled' %}
     {% endif %}
 </div>
+
+
+{% if __SELF__.form.spam_use_captcha %}
+    <script>
+        {# Reload the captcha if the validation failed. Each Captcha is valid only once. #}
+        document.querySelector('#{{ id }}').addEventListener('ajax:request-error', function (event) {
+            if (event.detail.responseCode === 406 && event.detail.message['X_OCTOBER_ERROR_FIELDS'].hasOwnProperty('captcha')) {
+                oc.request(this, '{{ __SELF__ }}::onRegenerateCaptcha')
+            }
+        })
+    </script>
+{% endif %}

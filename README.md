@@ -56,7 +56,7 @@ The form comes with a honeypot field to prevent spam. You can disable this by se
 
 To enable file uploads, you need to install the [Responsiv.Uploader](https://octobercms.com/plugin/responsiv-uploader) plugin:
 
-```
+```bash
 composer require responsiv/uploader-plugin
 ```
 
@@ -66,6 +66,17 @@ You can use the `fileuploadPlaceholderText` property to define a custom placehol
 
 **Important**: Responsiv.Uploader depends on jQuery. This means you need to include jQuery on your page.
 Set the `includeJQuery` property to `true` if you want the component to include jQuery automatically.
+
+
+#### Captach Support
+
+To enable captcha support, you need to install the [Captacha for Laravel](https://github.com/mewebstudio/captcha) composer package:
+
+```bash
+composer require mews/captcha
+```
+
+Once the package is installed, you can enable the captcha field in the form settings.
 
 #### Field overrides
 

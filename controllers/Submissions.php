@@ -11,9 +11,9 @@ use OFFLINE\Forms\Models\Submission;
 class Submissions extends Controller
 {
     public $implement = [
-        \Backend\Behaviors\FormController::class,
-        \Backend\Behaviors\ListController::class,
-        \Backend\Behaviors\ImportExportController::class,
+        Backend\Behaviors\FormController::class,
+        Backend\Behaviors\ListController::class,
+        Backend\Behaviors\ImportExportController::class,
     ];
 
     public $formConfig = 'config_form.yaml';

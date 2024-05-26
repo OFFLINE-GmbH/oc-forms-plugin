@@ -1,0 +1,32 @@
+{% set field = {
+    label: 'Captcha',
+    is_required: true,
+    name: 'captcha',
+    id: __SELF__.alias ~ '[captcha]',
+    type: 'text',
+    _field_type: 'captcha',
+} %}
+
+<div class="{{ __SELF__.classNames('form-control--captcha') }}">
+    {% partial __SELF__ ~ '::label' field=field %}
+
+    <img
+        class="{{ __SELF__.classNames('form-captcha-img') }}"
+        src="{{ __SELF__.captcha.img }}" alt="Captcha"
+    />
+    <a class="{{ __SELF__.classNames('form-regenerate-captcha') }}" href="#" data-request="{{ __SELF__ }}::onRegenerateCaptcha">
+        {{ 'offline.forms::lang.captcha_regenerate' | trans }}
+    </a>
+</div>
+
+<input type="hidden" name="{{ __SELF__.alias }}[captcha_key]" value="{{ __SELF__.captcha.key }}">
+
+<input
+    class="{{ __SELF__.classNames('form-control', 'form-control--' ~ field.type) }}"
+    type="{{ field.type }}"
+    name="{{ field.id }}"
+    id="{{ field.id }}"
+    {% if field.placeholder %}
+        placeholder="{{ field.placeholder }}"
+    {% endif %}
+>

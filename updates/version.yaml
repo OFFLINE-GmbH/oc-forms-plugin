@@ -31,3 +31,6 @@ v1.0.29:
     - 'Render array values in Mail view correctly'
 v1.0.30:
     - 'Do not render optinal fields in mail body'
+v1.0.31:
+    - 'Added Captcha support'
+    - add_use_captcha_field_to_forms.php

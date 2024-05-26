@@ -31,6 +31,8 @@ return [
     'spam_protection_enabled_comment' => 'Verhindere Massenversand von E-Mails über dieses Formular',
     'spam_limit_ip_15min' => 'Max. Anzahl Nachrichten pro IP in 15 Minuten',
     'spam_limit_global_1h' => 'Max. Anzahl Nachrichten für dieses Formular in einer Stunde',
+    'spam_use_captcha' => 'Captcha verwenden',
+    'spam_use_captcha_comment' => 'Benutzer müssen ein Captcha lösen, um das Formular absenden zu können',
     'slug' => 'Slug',
     'recipients_email_validation' => 'Bitte geben Sie eine gültige Empfänger-E-Mail ein',
     'updated_at' => 'Aktualisiert',
@@ -107,4 +109,6 @@ return [
     'add_custom_validation_rule' => 'Regel hinzufügen',
     'custom_validation_rule' => 'Regel',
     'custom_validation_message' => 'Fehlermeldung',
+    'captcha_validation' => 'Das Captcha wurde nicht korrekt gelöst.',
+    'captcha_regenerate' => 'Neues Captcha generieren',
 ];

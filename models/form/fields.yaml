@@ -309,16 +309,22 @@ tabs:
             span: right
             tab: 'offline.forms::lang.config'
             size: small
+        spam_use_captcha:
+            label: 'offline.forms::lang.spam_use_captcha'
+            comment: 'offline.forms::lang.spam_use_captcha_comment'
+            span: right
+            type: switch
+            tab: 'offline.forms::lang.spam_protection'
         spam_protection_enabled:
             label: 'offline.forms::lang.spam_protection_enabled'
-            span: full
+            span: left
             default: 1
             type: switch
             comment: 'offline.forms::lang.spam_protection_enabled_comment'
             tab: 'offline.forms::lang.spam_protection'
         spam_limit_ip_15min:
             label: 'offline.forms::lang.spam_limit_ip_15min'
-            span: auto
+            span: left
             default: '3'
             trigger:
                 action: show

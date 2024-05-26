@@ -42,6 +42,11 @@ class RenderForm extends ComponentBase
     public string $fileuploadPlaceholderText = '';
 
     /**
+     * The Captcha instance.
+     */
+    public array $captcha = [];
+
+    /**
      * Details of this component.
      */
     public function componentDetails()
@@ -192,6 +197,30 @@ class RenderForm extends ComponentBase
     }
 
     /**
+     * Initialize the Captcha.
+     */
+    public function initializeCaptcha()
+    {
+        if (!$this->form->spam_use_captcha || !class_exists(\Mews\Captcha\Facades\Captcha::class)) {
+            return;
+        }
+
+        $this->captcha = \Mews\Captcha\Facades\Captcha::create('default', true);
+    }
+
+    /**
+     * Generate a new Captcha.
+     */
+    public function onRegenerateCaptcha()
+    {
+        $this->initializeCaptcha();
+
+        return [
+            '.' . $this->alias . '-captcha-container' => $this->renderPartial($this->alias . '::captcha_image'),
+        ];
+    }
+
+    /**
      * Load and initialize the form.
      */
     protected function setupForm()
@@ -199,6 +228,7 @@ class RenderForm extends ComponentBase
         $this->form = $this->getForm();
 
         $this->initializeFileUploads();
+        $this->initializeCaptcha();
     }
 
     /**

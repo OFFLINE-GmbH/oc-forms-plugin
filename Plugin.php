@@ -215,6 +215,25 @@ class Plugin extends PluginBase
                 }
             }
         });
+
+        // Hide the Captcha Option if the Laravel Captcha plugin is not installed.
+        Event::listen('backend.form.extendFields', function (\Backend\Widgets\Form $form) {
+            if (!$form->model instanceof Form || class_exists(\Mews\Captcha\CaptchaServiceProvider::class)) {
+                return;
+            }
+
+            $form->removeField('spam_use_captcha');
+        });
+
+        // Set sensible defaults for the Laravel Captcha plugin.
+        if (class_exists(\Mews\Captcha\CaptchaServiceProvider::class)) {
+            config()->set('captcha.default', [
+                'length' => 5,
+                'width' => 180,
+                'height' => 60,
+                'quality' => 90,
+            ]);
+        }
     }
 
     /**
@@ -223,7 +242,7 @@ class Plugin extends PluginBase
     public function registerComponents()
     {
         return [
-            \OFFLINE\Forms\Components\RenderForm::class => 'renderForm',
+            Components\RenderForm::class => 'renderForm',
         ];
     }
 

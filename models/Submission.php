@@ -111,6 +111,12 @@ class Submission extends ExpandoModel
         $this->rules = array_merge($this->rules, $this->form->getValidationRules());
         $this->customMessages = $this->form->getValidationMessages();
         $this->attributeNames = array_merge($this->attributeNames, $this->form->getFieldNames());
+
+        if ($this->form->spam_use_captcha) {
+            $this->rules['captcha'] = 'required|captcha_api:' . $this->captcha_key;
+            $this->attributeNames['captcha'] = 'Captcha';
+            $this->customMessages['captcha_api'] = trans('offline.forms::lang.captcha_validation');
+        }
     }
 
     public function afterValidate()

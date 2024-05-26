@@ -1,3 +1,7 @@
 {% for field in __SELF__.form.fields %}
     {% partial __SELF__ ~ '::field' field=field %}
 {% endfor %}
+
+{% if __SELF__.form.spam_use_captcha %}
+    {% partial __SELF__ ~ '::captcha' %}
+{% endif %}

@@ -31,6 +31,8 @@ return [
     'spam_protection_enabled_comment' => 'Prevent mass email sending through this form',
     'spam_limit_ip_15min' => 'Max. number of messages per IP in 15 minutes',
     'spam_limit_global_1h' => 'Max. number of messages per hour for this form',
+    'spam_use_captcha' => 'Use Captcha',
+    'spam_use_captcha_comment' => 'Users have to solve a captcha to submit the form',
     'slug' => 'Slug',
     'recipients_email_validation' => 'Please enter a valid recipient email address',
     'updated_at' => 'Updated',
@@ -107,4 +109,6 @@ return [
     'add_custom_validation_rule' => 'Add rule',
     'custom_validation_rule' => 'Rule',
     'custom_validation_message' => 'Error message',
+    'captcha_validation' => 'The captcha is not correct. Please try again.',
+    'captcha_regenerate' => 'Regenerate captcha',
 ];

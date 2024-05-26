@@ -6,7 +6,7 @@
         white-space: nowrap;
     ">
     <?php
-    /** @var \October\Rain\Database\Collection $value */
+    /** @var October\Rain\Database\Collection $value */
     foreach ($value as $file):
         ?>
         <a href="<?= e($file->getPath()); ?>" target="_blank">
