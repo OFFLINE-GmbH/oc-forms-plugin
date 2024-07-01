@@ -4,7 +4,6 @@ namespace OFFLINE\Forms\Components;
 
 use Cms\Classes\ComponentBase;
 use October\Rain\Argon\Argon;
-use October\Rain\Database\Scopes\MultisiteScope;
 use October\Rain\Exception\ValidationException;
 use October\Rain\Support\Facades\Event;
 use October\Rain\Support\Facades\Str;
@@ -324,7 +323,6 @@ class RenderForm extends ComponentBase
         }
 
         $form = Form::query()
-            ->withoutGlobalScope(MultisiteScope::class)
             ->where(
                 fn ($q) => $q
                     ->where('id', $this->property('id'))
