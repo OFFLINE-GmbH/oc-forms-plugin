@@ -201,7 +201,7 @@ class RenderForm extends ComponentBase
      */
     public function initializeCaptcha()
     {
-        if (!$this->form->spam_use_captcha || !class_exists(\Mews\Captcha\Facades\Captcha::class)) {
+        if (!$this->form?->spam_use_captcha || !class_exists(\Mews\Captcha\Facades\Captcha::class)) {
             return;
         }
 

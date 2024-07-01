@@ -38,3 +38,5 @@ v1.0.32:
     - 'Ignore Multisite Scope when fetching form'
 v1.0.34:
     - 'Added proper multisite support'
+v1.0.35:
+    - 'Fixed undefined property'
