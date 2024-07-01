@@ -5,6 +5,7 @@ namespace OFFLINE\Forms\Controllers;
 use Backend;
 use Backend\Classes\Controller;
 use BackendMenu;
+use October\Rain\Database\Scopes\MultisiteScope;
 use OFFLINE\Forms\Models\Form;
 use OFFLINE\Forms\Models\Submission;
 
@@ -34,6 +35,7 @@ class Submissions extends Controller
         BackendMenu::setContext('OFFLINE.Forms', 'offline-forms-main-menu', 'side-menu-forms');
 
         $this->formModel = Form::query()
+            ->withoutGlobalScope(MultisiteScope::class)
             ->where(function ($query) {
                 $query
                     ->where('id', $this->params[0] ?? -1)

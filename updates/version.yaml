@@ -40,3 +40,5 @@ v1.0.34:
     - 'Added proper multisite support'
 v1.0.35:
     - 'Fixed undefined property'
+v1.0.36:
+    - 'Multisite fixes'
