@@ -36,5 +36,5 @@ v1.0.31:
     - add_use_captcha_field_to_forms.php
 v1.0.32:
     - 'Ignore Multisite Scope when fetching form'
-v1.0.33:
+v1.0.34:
     - 'Added proper multisite support'
