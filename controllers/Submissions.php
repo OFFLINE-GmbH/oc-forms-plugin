@@ -83,7 +83,7 @@ class Submissions extends Controller
 
             // Include all submissions from the same form on other sites as well.
             $query->orWhereHas('form', function ($q) {
-                $q->forAllSites()->where('site_root_id', $this->formModel->site_root_id);
+                $q->forAllSites()->where('site_root_id', $this->formModel->id);
             });
         });
 
