@@ -44,3 +44,5 @@ v1.0.36:
     - 'Multisite fixes'
 v1.0.37:
     - 'Multisite fixes'
+v1.0.38:
+    - 'Fixes checkboxlist rendering in submission email'
