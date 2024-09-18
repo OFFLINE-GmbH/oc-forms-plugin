@@ -45,4 +45,8 @@ v1.0.36:
 v1.0.37:
     - 'Multisite fixes'
 v1.0.38:
+    - 'Fixes checkboxlist rendering in submission email'
+v1.0.39:
+    - 'Fixes default value of empty dropdowns'
+v1.0.40:
     - 'Fixed field name overrides'

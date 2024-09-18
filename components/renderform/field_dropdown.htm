@@ -5,7 +5,7 @@
     name="{{ field.id }}"
     id="{{ field.id }}"
 >
-    <option style="display: none;">-- {{ field.emptyOption | default(field.label) }}</option>
+    <option hidden disabled selected value>-- {{ field.emptyOption | default(field.label) }}</option>
     {% for option in field.options %}
         {% set value = option.value | default(option.label) %}
         <option
