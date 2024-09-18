@@ -1,5 +1,5 @@
 {# Overrides by field name #}
-{% set nameOverride = __SELF__.alias ~ '::_name_' ~ (field.name | slug) ~ '.htm' %}
+{% set nameOverride = __SELF__.alias ~ '::_name_' ~ (field.name | slug('_')) ~ '.htm' %}
 {# Overrides by type #}
 {% set typeOverride = __SELF__.alias ~ '::_type_' ~ field.type ~ '.htm' %}
 {# Default partial for the given field type. #}
