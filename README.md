@@ -68,9 +68,9 @@ You can use the `fileuploadPlaceholderText` property to define a custom placehol
 Set the `includeJQuery` property to `true` if you want the component to include jQuery automatically.
 
 
-#### Captach Support
+#### Captcha Support
 
-To enable captcha support, you need to install the [Captacha for Laravel](https://github.com/mewebstudio/captcha) composer package:
+To enable captcha support, you need to install the [Captcha for Laravel](https://github.com/mewebstudio/captcha) composer package:
 
 ```bash
 composer require mews/captcha
