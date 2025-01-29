@@ -50,3 +50,6 @@ v1.0.39:
     - 'Fixes default value of empty dropdowns'
 v1.0.40:
     - 'Fixed field name overrides'
+v1.0.41:
+    - 'Prevent Submission mails from being sent twice.'
+    - add_mail_sent_at_field_to_submissions.php

@@ -61,7 +61,12 @@ class Form extends Model
         'success_message' => 'offline.forms::lang.success_message',
     ];
 
-    public $hasMany = ['submissions' => Submission::class];
+    public $hasMany = [
+        'submissions' => [
+            Submission::class,
+            'replicate' => false,
+        ]
+    ];
 
     public $slugs = ['slug' => 'name'];
 
@@ -196,7 +201,7 @@ class Form extends Model
     public function getFieldNames(): array
     {
         return collect($this->fields)
-            ->mapWithKeys(fn (array $field) => [$field['name'] => $field['label'] ?? $field['name']])
+            ->mapWithKeys(fn(array $field) => [$field['name'] => $field['label'] ?? $field['name']])
             ->toArray();
     }
 
@@ -206,7 +211,7 @@ class Form extends Model
     public function getRelevantFields(): array
     {
         return collect($this->fields)
-            ->filter(fn (array $field) => array_get($field, '_field_type') !== 'section')
+            ->filter(fn(array $field) => array_get($field, '_field_type') !== 'section')
             ->toArray();
     }
 
@@ -216,7 +221,7 @@ class Form extends Model
     public function getEmailField(): ?array
     {
         return collect($this->fields)
-            ->first(fn (array $field) => array_get($field, 'type') === 'email');
+            ->first(fn(array $field) => array_get($field, 'type') === 'email');
     }
 
     /**

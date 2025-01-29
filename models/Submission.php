@@ -16,6 +16,7 @@ use System\Models\File;
  * @property string $ip_hash
  * @property string $port
  * @property int $form_id
+ * @property Argon $mail_sent_at
  *
  * @property Form $form
  * @method BelongsTo form()
@@ -50,7 +51,7 @@ class Submission extends ExpandoModel
         'deleted_at',
     ];
 
-    protected $dates = ['created_at', 'updated_at', 'deleted_at'];
+    protected $dates = ['created_at', 'updated_at', 'deleted_at', 'mail_sent_at'];
 
     protected $fillable = [];
 
@@ -92,6 +93,11 @@ class Submission extends ExpandoModel
         // commit the deferred bindings here so that the attachment is available when sending mails.
         $this->commitDeferred($this->sessionKey);
 
+        // Prevent sending the mail if it was sent before.
+        if ($this->mail_sent_at) {
+            return;
+        }
+
         if (count($this->form->recipients ?? []) > 0) {
             $this->sendMailToRecipients($this->form->name, $this->form->recipients);
         }
@@ -104,6 +110,9 @@ class Submission extends ExpandoModel
                 $this->sendMailToRecipients($this->form->mail_subject, recipients: [['email' => $email]], isCC: true);
             }
         }
+
+        $this->mail_sent_at = Argon::now();
+        $this->saveQuietly(['force' => true]);
     }
 
     public function beforeValidate()
