@@ -146,8 +146,17 @@ class Submission extends ExpandoModel
         // Transfer the data attributes.
         $this->expandoAfterFetch();
 
+        $viewOverride = Event::fire('offline.forms::overrideView', [$this]);
+
+        if (is_array($viewOverride)) {
+            $viewOverride = array_filter($viewOverride);
+            if (count($viewOverride) > 0)  {
+                $view = $viewOverride[0];
+            }
+        }
+
         Mail::send(
-            'offline.forms::mail.submission',
+            $view ?? 'offline.forms::mail.submission',
             [
                 'submission' => $this,
                 'subject' => $subject,
