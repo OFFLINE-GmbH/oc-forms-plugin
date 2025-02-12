@@ -53,3 +53,5 @@ v1.0.40:
 v1.0.41:
     - 'Prevent Submission mails from being sent twice.'
     - add_mail_sent_at_field_to_submissions.php
+v1.0.42:
+    - 'Added offline.forms::submission.overrideMailView event'

@@ -248,3 +248,17 @@ Event::listen(
     }
 );
 ```
+
+### `offline.forms::submission.overrideMailView`
+
+Use this event to change the mail view for a submission mail,
+
+```php
+Event::listen(
+    \OFFLINE\Forms\Classes\Events::SUBMISSION_OVERRIDE_MAIL_VIEW,
+    function (\OFFLINE\Forms\Models\Submission $submission) {
+    if ($submission->form->slug === 'something-special') {
+        return 'my-custom-mail-view';
+    }
+);
+```
