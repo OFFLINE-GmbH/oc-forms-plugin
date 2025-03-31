@@ -11,6 +11,7 @@
     {% partial __SELF__ ~ '::label' field=field %}
 
     <img
+        data-responsive="ignore"
         class="{{ __SELF__.classNames('form-captcha-img') }}"
         src="{{ __SELF__.captcha.img }}" alt="Captcha"
     />
