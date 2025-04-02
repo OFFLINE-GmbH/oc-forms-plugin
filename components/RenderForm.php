@@ -209,6 +209,16 @@ class RenderForm extends ComponentBase
     }
 
     /**
+     * Return the captcha image encoded as a data URI.
+     *
+     * @return string
+     */
+    public function captchaDataUri()
+    {
+       return $this->captcha['img']->toDataUri() ;
+    }
+
+    /**
      * Generate a new Captcha.
      */
     public function onRegenerateCaptcha()

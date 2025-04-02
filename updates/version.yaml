@@ -57,3 +57,5 @@ v1.0.42:
     - 'Added offline.forms::submission.overrideMailView event'
 v1.0.43:
     - 'Fixed captcha encoding'
+v1.0.44:
+    - 'Fixed captcha method access'
