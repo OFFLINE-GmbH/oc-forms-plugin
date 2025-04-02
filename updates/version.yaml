@@ -55,3 +55,5 @@ v1.0.41:
     - add_mail_sent_at_field_to_submissions.php
 v1.0.42:
     - 'Added offline.forms::submission.overrideMailView event'
+v1.0.43:
+    - 'Fixed captcha encoding'
