@@ -45,7 +45,7 @@ return [
     'add_field' => 'Feld hinzufügen',
     'input' => 'Einzeiliges Textfeld',
     'textarea' => 'Mehrzeiliges Textfeld',
-    'checkboxlist' => 'Auswahlliste',
+    'checkboxlist' => 'Kontrollkästchen',
     'checkboxlist_comment' => 'Mehrfachauswahl',
     'is_required' => 'Ist Pflichtfeld',
     'label' => 'Beschriftung',
@@ -111,4 +111,6 @@ return [
     'custom_validation_message' => 'Fehlermeldung',
     'captcha_validation' => 'Das Captcha wurde nicht korrekt gelöst.',
     'captcha_regenerate' => 'Neues Captcha generieren',
+    'radio' => 'Optionsfeld',
+    'radio_comment' => 'Einfachauswahl, Radiobutton',
 ];

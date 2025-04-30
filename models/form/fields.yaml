@@ -192,7 +192,41 @@ tabs:
                 checkboxlist:
                     name: 'offline.forms::lang.checkboxlist'
                     description: 'offline.forms::lang.checkboxlist_comment'
-                    icon: icon-list-ol
+                    icon: icon-check-square
+                    fields:
+                        label:
+                            label: 'offline.forms::lang.label'
+                            comment: 'offline.forms::lang.label_comment'
+                            type: text
+                            span: auto
+                            required: true
+                        name:
+                            label: 'offline.forms::lang.name'
+                            comment: 'offline.forms::lang.name_comment'
+                            type: text
+                            span: auto
+                            required: false
+                        options:
+                            label: 'offline.forms::lang.options'
+                            type: repeater
+                            span: full
+                            required: true
+                            form:
+                                fields:
+                                    label:
+                                        label: 'offline.forms::lang.label'
+                                        type: text
+                                        span: full
+                                        required: true
+                        is_required:
+                            type: checkbox
+                            default: 1
+                            label: 'offline.forms::lang.is_required'
+
+                radio:
+                    name: 'offline.forms::lang.radio'
+                    description: 'offline.forms::lang.radio_comment'
+                    icon: icon-check-circle
                     fields:
                         label:
                             label: 'offline.forms::lang.label'

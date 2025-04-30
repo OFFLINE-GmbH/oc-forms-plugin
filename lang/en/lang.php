@@ -111,4 +111,6 @@ return [
     'custom_validation_message' => 'Error message',
     'captcha_validation' => 'The captcha is not correct. Please try again.',
     'captcha_regenerate' => 'Regenerate captcha',
+    'radio' => 'Radio buttons',
+    'radio_comment' => 'Select one option',
 ];
