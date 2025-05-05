@@ -61,3 +61,5 @@ v1.0.44:
     - 'Fixed captcha method access'
 v1.0.45:
     - 'Added radio button field'
+v1.0.46:
+    - 'Fixed radio button field'

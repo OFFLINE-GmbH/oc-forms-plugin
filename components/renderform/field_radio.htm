@@ -6,7 +6,7 @@
             <input
                 type="radio"
                 id="{{ field.id }}_{{ loop.index }}"
-                name="{{ field.id }}[{{ loop.index }}][value]"
+                name="{{ field.id }}"
                 value="{{ option.value | default(option.label) }}"
                 {% if option.checked %}checked="checked"{% endif %}
             >
