@@ -63,3 +63,5 @@ v1.0.45:
     - 'Added radio button field'
 v1.0.46:
     - 'Fixed radio button field'
+v1.0.47:
+    - 'Fixed mews/captcha compatibility (upgrade the mews/captcha package to v3.4.6 if you experience problems)'

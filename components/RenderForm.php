@@ -215,7 +215,7 @@ class RenderForm extends ComponentBase
      */
     public function captchaDataUri()
     {
-       return $this->captcha['img']->toDataUri() ;
+       return $this->captcha['img'] ?? '';
     }
 
     /**

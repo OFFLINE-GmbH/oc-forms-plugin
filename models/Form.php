@@ -44,6 +44,7 @@ class Form extends Model
         'spam_protection_enabled',
         'spam_limit_ip_15min',
         'spam_limit_global_1h',
+        'spam_use_captcha',
         'success_script',
     ];
 
