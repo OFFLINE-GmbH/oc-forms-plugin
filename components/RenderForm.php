@@ -2,8 +2,8 @@
 
 namespace OFFLINE\Forms\Components;
 
+use Carbon\Carbon;
 use Cms\Classes\ComponentBase;
-use October\Rain\Argon\Argon;
 use October\Rain\Exception\ValidationException;
 use October\Rain\Support\Facades\Event;
 use October\Rain\Support\Facades\Str;
@@ -297,7 +297,7 @@ class RenderForm extends ComponentBase
         $messageCountIp = Submission::query()
             ->where('ip_hash', hash('sha256', request()?->ip()))
             ->where('form_id', $this->form->id)
-            ->where('created_at', '>=', Argon::now()->subMinutes(15))
+            ->where('created_at', '>=', Carbon::now()->subMinutes(15))
             ->count();
 
         if ($messageCountIp > $this->form->spam_limit_ip_15min) {
@@ -308,7 +308,7 @@ class RenderForm extends ComponentBase
 
         $messageCountGlobal = Submission::query()
             ->where('form_id', $this->form->id)
-            ->where('created_at', '>=', Argon::now()->subHour())
+            ->where('created_at', '>=', Carbon::now()->subHour())
             ->count();
 
         if ($messageCountGlobal > $this->form->spam_limit_global_1h) {

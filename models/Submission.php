@@ -2,8 +2,8 @@
 
 namespace OFFLINE\Forms\Models;
 
+use Carbon\Carbon;
 use Illuminate\Mail\Message;
-use October\Rain\Argon\Argon;
 use October\Rain\Database\ExpandoModel;
 use October\Rain\Database\Relations\BelongsTo;
 use October\Rain\Support\Facades\Event;
@@ -16,7 +16,7 @@ use System\Models\File;
  * @property string $ip_hash
  * @property string $port
  * @property int $form_id
- * @property Argon $mail_sent_at
+ * @property Carbon $mail_sent_at
  *
  * @property Form $form
  * @method BelongsTo form()
@@ -80,11 +80,11 @@ class Submission extends ExpandoModel
         $this->port = request()?->getPort();
 
         if (!$this->created_at) {
-            $this->created_at = Argon::now();
+            $this->created_at = Carbon::now();
         }
 
         if (!$this->updated_at) {
-            $this->updated_at = Argon::now();
+            $this->updated_at = Carbon::now();
         }
     }
 
@@ -111,7 +111,7 @@ class Submission extends ExpandoModel
             }
         }
 
-        $this->mail_sent_at = Argon::now();
+        $this->mail_sent_at = Carbon::now();
         $this->saveQuietly(['force' => true]);
     }
 
