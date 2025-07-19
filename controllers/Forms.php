@@ -39,6 +39,9 @@ class Forms extends Controller
             $newForm = $form->replicate();
             $newForm->name .= ' - ' . __('Copy');
             $newForm->save();
+
+            $newForm->site_root_id = $newForm->id;
+            $newForm->save();
         }
 
         Flash::success(Lang::get('offline.forms::lang.duplicate_success'));
