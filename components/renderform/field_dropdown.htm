@@ -1,7 +1,7 @@
 {% partial __SELF__ ~ '::label' field=field %}
 
 <select
-    class="{{ __SELF__.classNames('form-control', 'form-control--' ~ field.type) }}"
+    class="{{ __SELF__.classNames('form-control', 'form-control--' ~ field._field_type) }}"
     name="{{ field.id }}"
     id="{{ field.id }}"
 >
