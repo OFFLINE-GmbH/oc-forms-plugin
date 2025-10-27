@@ -69,3 +69,5 @@ v1.0.48:
     - 'Fixed October v4 compatibility'
 v1.0.49:
     - 'Fixed wrong site_root_id when duplicating forms'
+v1.0.50:
+    - 'Fixed dropdown class name'
