@@ -33,7 +33,7 @@
     <script>
         {# Reload the captcha if the validation failed. Each Captcha is valid only once. #}
         document.querySelector('#{{ id }}').addEventListener('ajax:request-error', function (event) {
-            if (event.detail.responseCode === 406 && event.detail.message['X_OCTOBER_ERROR_FIELDS'].hasOwnProperty('captcha')) {
+            if (event.detail.responseCode === 406) {
                 oc.request(this, '{{ __SELF__ }}::onRegenerateCaptcha')
             }
         })
