@@ -73,3 +73,5 @@ v1.0.50:
     - 'Fixed dropdown class name'
 v1.0.51:
     - 'Fixed Captcha regeneration on error'
+v1.0.52:
+    - 'Added autocomplete="off" to honeypot field'
